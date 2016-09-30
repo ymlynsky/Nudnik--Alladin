@@ -1,0 +1,4 @@
+Hint: Swipe to move
+Hint: Swipe up to jump
+Hint: Collect many letter coins 
+Hint: Careful you might learn something :)

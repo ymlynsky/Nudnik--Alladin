@@ -1,0 +1,188 @@
+fileFormatVersion: 2
+guid: b90f05359f961f240ad5425fad3ddb88
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Blok4
+    100002: Bloks1
+    100004: Bloks10
+    100006: Bloks2
+    100008: Bloks3
+    100010: Bloks4
+    100012: Bloks5
+    100014: Bloks6
+    100016: Bloks7
+    100018: Bloks8
+    100020: Bloks9
+    100022: //RootNode
+    100024: Plane4
+    100026: por
+    100028: Bloks_1
+    100030: Bloks
+    400000: Blok4
+    400002: Bloks1
+    400004: Bloks10
+    400006: Bloks2
+    400008: Bloks3
+    400010: Bloks4
+    400012: Bloks5
+    400014: Bloks6
+    400016: Bloks7
+    400018: Bloks8
+    400020: Bloks9
+    400022: //RootNode
+    400024: Plane4
+    400026: por
+    400028: Bloks_1
+    400030: Bloks
+    2300000: Blok4
+    2300002: Bloks1
+    2300004: Bloks10
+    2300006: Bloks2
+    2300008: Bloks3
+    2300010: Bloks4
+    2300012: Bloks5
+    2300014: Bloks6
+    2300016: Bloks7
+    2300018: Bloks8
+    2300020: Bloks9
+    2300022: Plane4
+    2300024: Bloks_1
+    2300026: Bloks
+    3300000: Blok4
+    3300002: Bloks1
+    3300004: Bloks10
+    3300006: Bloks2
+    3300008: Bloks3
+    3300010: Bloks4
+    3300012: Bloks5
+    3300014: Bloks6
+    3300016: Bloks7
+    3300018: Bloks8
+    3300020: Bloks9
+    3300022: Plane4
+    3300024: Bloks_1
+    3300026: Bloks
+    4300000: Bloks10
+    4300002: Bloks9
+    4300004: Bloks8
+    4300006: Bloks7
+    4300008: Bloks6
+    4300010: Bloks5
+    4300012: Bloks4
+    4300014: Bloks3
+    4300016: Bloks1
+    4300018: Bloks2
+    4300020: Plane4
+    4300022: Blok4
+    4300024: Bloks_1
+    4300026: Bloks
+    7400000: bochki
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: bochki
+      takeName: C4D Animation Take
+      firstFrame: 0
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bloks1
+        weight: 1
+      - path: Bloks2
+        weight: 1
+      - path: Bloks3
+        weight: 1
+      - path: Bloks4
+        weight: 1
+      - path: Bloks5
+        weight: 1
+      - path: Bloks6
+        weight: 1
+      - path: Bloks7
+        weight: 1
+      - path: Bloks8
+        weight: 1
+      - path: Bloks9
+        weight: 1
+      - path: Bloks10
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00350000011
+    meshCompression: 2
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

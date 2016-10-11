@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &175542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 497408}
+  - 114: {fileID: 11496326}
+  m_Layer: 0
+  m_Name: CharBuy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &497408
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11496326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71ebc93b8e1d14469e2a56d55c29ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin1: 8000
+  skin2: 25000
+  skinNew: 100000
+  cape1: 450
+  cape2: 2000
+  cape3: 3500
+  cape4: 5500
+  cape5: 4000
+  cape6: 7000
+  cape7: 10500
+  metch1: 1500
+  metch2: 2500
+  metch3: 4000
+  metch4: 7000
+  animat: {fileID: 0}
+  dooranimat: {fileID: 0}
+  PlayerX: {fileID: 0}
+  PlayerMesh: {fileID: 0}
+  PlayerMesh2: {fileID: 0}
+  StartCostum: {fileID: 2800000, guid: d81b6d6bee7b32c4daba1352926c7372, type: 3}
+  RedCostum: {fileID: 2800000, guid: 1a5b44289316fa349ab9f3ad29fe8baf, type: 3}
+  GreenCostum: {fileID: 2800000, guid: 531fb58f619f59940a81e6754f8020a2, type: 3}
+  Shapki:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Mech:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  butLeft: {fileID: 0}
+  butRight: {fileID: 0}
+  imButton: {fileID: 0}
+  BuyButton: {fileID: 0}
+  BuyBut: {fileID: 0}
+  coast: {fileID: 0}
+  magnetP: {fileID: 0}
+  koverP: {fileID: 0}
+  botP: {fileID: 0}
+  dP: {fileID: 0}
+  tMagnit: {fileID: 0}
+  tKover: {fileID: 0}
+  tBot: {fileID: 0}
+  tDouble: {fileID: 0}
+  itemName: {fileID: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 175542}
+  m_IsPrefabParent: 1

@@ -1,0 +1,210 @@
+fileFormatVersion: 2
+guid: 8cbf15ba41bd24a9a9965b281b8e8264
+timeCreated: 1470270357
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Box001
+    100002: Box002
+    100004: Box003
+    100006: Box004
+    100008: Box005
+    100010: Box006
+    100012: Box007
+    100014: column_w043
+    100016: column_w044
+    100018: column_w045
+    100020: column_w046
+    100022: column_w047
+    100024: column_w048
+    100026: column_w049
+    100028: column_w050
+    100030: column_w051
+    100032: column_w052
+    100034: column_w053
+    100036: column_w054
+    100038: column_w055
+    100040: column_w056
+    100042: column_w057
+    100044: column_w058
+    100046: column_w059
+    100048: column_w060
+    100050: column_w061
+    100052: column_w42
+    100054: //RootNode
+    400000: Box001
+    400002: Box002
+    400004: Box003
+    400006: Box004
+    400008: Box005
+    400010: Box006
+    400012: Box007
+    400014: column_w043
+    400016: column_w044
+    400018: column_w045
+    400020: column_w046
+    400022: column_w047
+    400024: column_w048
+    400026: column_w049
+    400028: column_w050
+    400030: column_w051
+    400032: column_w052
+    400034: column_w053
+    400036: column_w054
+    400038: column_w055
+    400040: column_w056
+    400042: column_w057
+    400044: column_w058
+    400046: column_w059
+    400048: column_w060
+    400050: column_w061
+    400052: column_w42
+    400054: //RootNode
+    2300000: Box001
+    2300002: Box002
+    2300004: Box003
+    2300006: Box004
+    2300008: Box005
+    2300010: Box006
+    2300012: Box007
+    2300014: column_w043
+    2300016: column_w044
+    2300018: column_w045
+    2300020: column_w046
+    2300022: column_w047
+    2300024: column_w048
+    2300026: column_w049
+    2300028: column_w050
+    2300030: column_w051
+    2300032: column_w052
+    2300034: column_w053
+    2300036: column_w054
+    2300038: column_w055
+    2300040: column_w056
+    2300042: column_w057
+    2300044: column_w058
+    2300046: column_w059
+    2300048: column_w060
+    2300050: column_w061
+    2300052: column_w42
+    3300000: Box001
+    3300002: Box002
+    3300004: Box003
+    3300006: Box004
+    3300008: Box005
+    3300010: Box006
+    3300012: Box007
+    3300014: column_w043
+    3300016: column_w044
+    3300018: column_w045
+    3300020: column_w046
+    3300022: column_w047
+    3300024: column_w048
+    3300026: column_w049
+    3300028: column_w050
+    3300030: column_w051
+    3300032: column_w052
+    3300034: column_w053
+    3300036: column_w054
+    3300038: column_w055
+    3300040: column_w056
+    3300042: column_w057
+    3300044: column_w058
+    3300046: column_w059
+    3300048: column_w060
+    3300050: column_w061
+    3300052: column_w42
+    4300000: Box001
+    4300002: column_w42
+    4300004: Box002
+    4300006: column_w043
+    4300008: column_w044
+    4300010: column_w045
+    4300012: column_w046
+    4300014: column_w047
+    4300016: column_w048
+    4300018: column_w049
+    4300020: column_w050
+    4300022: column_w051
+    4300024: column_w052
+    4300026: column_w053
+    4300028: column_w054
+    4300030: column_w055
+    4300032: column_w056
+    4300034: column_w057
+    4300036: column_w058
+    4300038: column_w059
+    4300040: column_w060
+    4300042: Box003
+    4300044: column_w061
+    4300046: Box004
+    4300048: Box005
+    4300050: Box006
+    4300052: Box007
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -10,7 +10,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: AltTab
+  companyName: Oneg Run
   productName: Nudnik Run
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -197,7 +197,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Users/manolescusebastian/Desktop/Desktop Z/nudnik_runner_key.keystore
+  AndroidKeystoreName: /Users/manolescusebastian/Desktop/nudnik_runner_key.keystore
   AndroidKeyaliasName: nudnikrunner
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

@@ -8185,9 +8185,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943527976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac68fdd506bda9e47ad1766608c2dd4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 39b82a830e4c946f38b0f6da2ae45f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingPage: 0
+  fastSwipeThresholdTime: 0.3
+  fastSwipeThresholdDistance: 100
+  decelerationRate: 10
+  prevButton: {fileID: 0}
+  nextButton: {fileID: 0}
+  unselectedPage: {fileID: 0}
+  selectedPage: {fileID: 0}
+  pageSelectionIcons: {fileID: 0}
 --- !u!114 &1943527979
 MonoBehaviour:
   m_ObjectHideFlags: 0

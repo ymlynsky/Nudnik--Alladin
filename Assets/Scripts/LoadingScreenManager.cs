@@ -45,7 +45,7 @@ public class LoadingScreenManager : MonoBehaviour
 	private string[] hints;
 	private int hintsNumber = 0;
 
-	public static int sceneToLoad = 2;
+	public static int sceneToLoad = 3;
 	// IMPORTANT! This is the build index of your loading scene. You need to change this to match your actual scene index
 	//static int loadingSceneIndex = 2;
 

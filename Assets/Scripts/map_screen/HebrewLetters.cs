@@ -23,10 +23,11 @@ public class HebrewLetters : MonoBehaviour
 	{
 		gameObjectList = new List<GameObject>();
 		//string[] hebrewLettersArray = new string[] {"א","בּ","ב","ג","ד","ה","ו‎","ז","ח","ט","י","כּ","כ","ךּ‎","ך","ל","מ","ם","ן","ס","ע","פּ","פ","ף‎","צ‎","ץ‎","ק‎","ר‎","שׁ","שׂ","תּ","ת"};
-		char[] hebrewCharLettersArray = new char[]	{'\u05D0','\u05D1','\u05D2','\u05D3','\u05D4','\u05D5','\u05D6','\u05D7','\u05D8','\u05D9',
-													'\u05DA','\u05DB','\u05DC','\u05DD','\u05DE','\u05DF','\u05E0','\u05E1','\u05E2','\u05E3',
-													'\u05E4','\u05E5','\u05E6','\u05E7','\u05E8','\u05E9','\u05EA','\u05F0','\u05F1','\u05F2',
-													'\u05F3','\u05F4'};
+		char[] hebrewCharLettersArray = new char[]	{'\u05D0','\uFB31','\u05D1','\u05D2','\u05D3','\u05D4','\u05D5',
+													'\u05D6','\u05D7','\u05D8','\u05D9','\uFB3B','\u05DB','\u05DA',
+													'\u05DC','\u05DE','\u05DD','\u05E0','\u05DF','\u05E1','\u05E2',
+													'\uFB44','\u05E4','\u05E3','\u05E6','\u05E5','\u05E7','\u05E8',
+													'\uFB2A','\uFB2B','\uFB4A','\u05EA'};
 	
 		gameObjectList.AddRange(GameObject.FindGameObjectsWithTag ("map_letter_tag"));
 		gameObjectList.Sort(SortByName);

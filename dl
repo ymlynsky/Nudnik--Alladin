@@ -1,0 +1,2045 @@
+[33mcommit 82927662ae354358b56060c92a43f9648c8746f1[m
+Author: Mihai Moiseanu <mihai.moiseanu@gmail.com>
+Date:   Tue Feb 21 14:40:23 2017 +0200
+
+    fixed bug, player will know get back on track when you choose correct letter
+
+[1mdiff --git a/Assets/Scripts/AjPlayerController.cs b/Assets/Scripts/AjPlayerController.cs[m
+[1mindex f12f0e5b..10da0590 100644[m
+[1m--- a/Assets/Scripts/AjPlayerController.cs[m
+[1m+++ b/Assets/Scripts/AjPlayerController.cs[m
+[36m@@ -118,7 +118,7 @@[m [mpublic class AjPlayerController : MonoBehaviour {[m
+ 	}[m
+ [m
+ 	void Start(){[m
+[31m-[m
+[32m+[m		[32mPlayerPrefs.DeleteAll ();[m
+ 		l1.intensity = 0;[m
+ 		pauseButton = GameObject.FindGameObjectWithTag ("pauseMenu");[m
+ 		jumpUP = false;[m
+[36m@@ -167,7 +167,8 @@[m [mpublic class AjPlayerController : MonoBehaviour {[m
+ 							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];[m
+ 							aSource.volume = 1F;[m
+ 							aSource.Play ();[m
+[31m-[m
+[32m+[m							[32mVector3 temp = new Vector3(0.0f,50,0);[m
+[32m+[m							[32mtransform.position -= temp;[m
+ 							PauseMenu.PausedOff ();[m
+ 						} else {[m
+ 							hitx.collider.gameObject.SetActive (false);[m
+[36m@@ -348,60 +349,60 @@[m [mpublic class AjPlayerController : MonoBehaviour {[m
+ 						int currentLevel = PlayerPrefs.GetInt ("level", 0);[m
+ 						currentLevel++;[m
+ 						PlayerPrefs.SetInt ("level", currentLevel);[m
+[31m-//[m
+[31m-//						PauseMenu.Paused();[m
+[31m-//						isChooseLetterActive = true;[m
+[31m-//						aSource.enabled = true;[m
+[31m-//						aSource.clip = chooseTheLetterArray[LetterCountController.countValue];[m
+[31m-//						aSource.volume = 1F;[m
+[31m-//						aSource.Play ();[m
+[31m-//[m
+[31m-//						Vector3 tempx = new Vector3(transform.position.x,51,15.0f);[m
+[31m-//[m
+[31m-//						coinKnowledgeContainer.transform.position = tempx;[m
+[31m-//						Vector3 temp = new Vector3(0.0f,50,0);[m
+[31m-//						transform.position += temp;[m
+[31m-//[m
+[31m-//						bool showCurrentLetter = false;[m
+[31m-//[m
+[31m-//						//GameObject al = this.gameObject.GetComponentInChildren("ALADDIN2");[m
+[31m-//						//al.transform.Rotate(Time.deltaTime, 180, 0);[m
+[31m-//[m
+[31m-//						int[] letterInt = {0,1,2};[m
+[31m-//[m
+[31m-//						for (int i = 0; i < letterInt.Length; i++) {[m
+[31m-//							int temp1 = letterInt[i];[m
+[31m-//							int randomIndex = Random.Range(i, letterInt.Length);[m
+[31m-//							letterInt[i] = letterInt[randomIndex];[m
+[31m-//							letterInt[randomIndex] = temp1;[m
+[31m-//						}[m
+[31m-//[m
+[31m-//[m
+[31m-//[m
+[31m-//						List<int> addedLetterPos = new List<int> ();[m
+[31m-//[m
+[31m-//						for(int i=0;i<3;i++){[m
+[31m-//[m
+[31m-//							Renderer coinRenderer = coinChoiceArray [letterInt[i]];[m
+[31m-//							coinRenderer.gameObject.SetActive (true);[m
+[31m-//[m
+[31m-//							if (!showCurrentLetter) {[m
+[31m-//								coinRenderer.material.mainTexture = Resources.Load (letterNameArray [LetterCountController.countValue]) as Texture;[m
+[31m-//								showCurrentLetter = true;[m
+[31m-//								addedLetterPos.Add (LetterCountController.countValue);[m
+[31m-//								correctAnswerPosition = letterInt [i];[m
+[31m-//							} else {[m
+[31m-//								int incorrectRandomLetter = Random.Range (0, (letterNameArray.Length - 1));[m
+[31m-//								if (!addedLetterPos.Contains (incorrectRandomLetter)) {[m
+[31m-//									coinRenderer.material.mainTexture = Resources.Load (letterNameArray [incorrectRandomLetter]) as Texture;[m
+[31m-//									addedLetterPos.Add (incorrectRandomLetter);[m
+[31m-//								} else {[m
+[31m-//									i--;[m
+[31m-//								}[m
+[31m-//							}[m
+[31m-//						}[m
+[31m-//[m
+[31m-//[m
+[32m+[m
+[32m+[m						[32mPauseMenu.Paused();[m
+[32m+[m						[32misChooseLetterActive = true;[m
+[32m+[m						[32maSource.enabled = true;[m
+[32m+[m						[32maSource.clip = chooseTheLetterArray[LetterCountController.countValue];[m
+[32m+[m						[32maSource.volume = 1F;[m
+[32m+[m						[32maSource.Play ();[m
+[32m+[m
+[32m+[m						[32mVector3 tempx = new Vector3(transform.position.x,51,15.0f);[m
+[32m+[m
+[32m+[m						[32mcoinKnowledgeContainer.transform.position = tempx;[m
+[32m+[m						[32mVector3 temp = new Vector3(0.0f,50,0);[m
+[32m+[m						[32mtransform.position += temp;[m
+[32m+[m
+[32m+[m						[32mbool showCurrentLetter = false;[m
+[32m+[m
+[32m+[m						[32m//GameObject al = this.gameObject.GetComponentInChildren("ALADDIN2");[m
+[32m+[m						[32m//al.transform.Rotate(Time.deltaTime, 180, 0);[m
+[32m+[m
+[32m+[m						[32mint[] letterInt = {0,1,2};[m
+[32m+[m
+[32m+[m						[32mfor (int i = 0; i < letterInt.Length; i++) {[m
+[32m+[m							[32mint temp1 = letterInt[i];[m
+[32m+[m							[32mint randomIndex = Random.Range(i, letterInt.Length);[m
+[32m+[m							[32mletterInt[i] = letterInt[randomIndex];[m
+[32m+[m							[32mletterInt[randomIndex] = temp1;[m
+[32m+[m						[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m						[32mList<int> addedLetterPos = new List<int> ();[m
+[32m+[m
+[32m+[m						[32mfor(int i=0;i<3;i++){[m
+[32m+[m
+[32m+[m							[32mRenderer coinRenderer = coinChoiceArray [letterInt[i]];[m
+[32m+[m							[32mcoinRenderer.gameObject.SetActive (true);[m
+[32m+[m
+[32m+[m							[32mif (!showCurrentLetter) {[m
+[32m+[m								[32mcoinRenderer.material.mainTexture = Resources.Load (letterNameArray [LetterCountController.countValue]) as Texture;[m
+[32m+[m								[32mshowCurrentLetter = true;[m
+[32m+[m								[32maddedLetterPos.Add (LetterCountController.countValue);[m
+[32m+[m								[32mcorrectAnswerPosition = letterInt [i];[m
+[32m+[m							[32m} else {[m
+[32m+[m								[32mint incorrectRandomLetter = Random.Range (0, (letterNameArray.Length - 1));[m
+[32m+[m								[32mif (!addedLetterPos.Contains (incorrectRandomLetter)) {[m
+[32m+[m									[32mcoinRenderer.material.mainTexture = Resources.Load (letterNameArray [incorrectRandomLetter]) as Texture;[m
+[32m+[m									[32maddedLetterPos.Add (incorrectRandomLetter);[m
+[32m+[m								[32m} else {[m
+[32m+[m									[32mi--;[m
+[32m+[m								[32m}[m
+[32m+[m							[32m}[m
+[32m+[m						[32m}[m
+[32m+[m
+[32m+[m
+ 						localLvlCounter = 0;	[m
+ 						LetterCountController.countValue++;[m
+ [m
+[1mdiff --git a/Library/CurrentLayout.dwlt b/Library/CurrentLayout.dwlt[m
+[1mindex 4fe93a5b..a7b8a018 100644[m
+Binary files a/Library/CurrentLayout.dwlt and b/Library/CurrentLayout.dwlt differ
+[1mdiff --git a/Library/LastBuild.buildreport b/Library/LastBuild.buildreport[m
+[1mindex 567f6b7f..6ce44f94 100644[m
+Binary files a/Library/LastBuild.buildreport and b/Library/LastBuild.buildreport differ
+[1mdiff --git a/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb b/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb[m
+[1mindex edc2a9dd..76bc5a28 100644[m
+Binary files a/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb and b/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb differ
+[1mdiff --git a/Library/assetDatabase3 b/Library/assetDatabase3[m
+[1mindex cdd854c7..fd04ee02 100644[m
+Binary files a/Library/assetDatabase3 and b/Library/assetDatabase3 differ
+[1mdiff --git a/Library/metadata/00/00000000000000004000000000000000 b/Library/metadata/00/00000000000000004000000000000000[m
+[1mindex 056a0718..ffc995ef 100644[m
+Binary files a/Library/metadata/00/00000000000000004000000000000000 and b/Library/metadata/00/00000000000000004000000000000000 differ
+[1mdiff --git a/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3 b/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3[m
+[1mindex 67097085..d3754a59 100644[m
+Binary files a/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3 and b/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3 differ
+[1mdiff --git a/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19 b/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19[m
+[1mindex 9c811853..d1bf3e78 100644[m
+Binary files a/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19 and b/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19 differ
+[1mdiff --git a/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38 b/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38[m
+[1mindex 3fbe4049..cd8ad819 100644[m
+Binary files a/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38 and b/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38 differ
+[1mdiff --git a/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4 b/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4[m
+[1mindex dfd70384..4666c578 100644[m
+Binary files a/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4 and b/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4 differ
+[1mdiff --git a/unityproject.apk b/unityproject.apk[m
+[1mindex b7d585b2..cebee3fc 100644[m
+Binary files a/unityproject.apk and b/unityproject.apk differ
+[1mdiff --git a/unityproject.userprefs b/unityproject.userprefs[m
+[1mindex f0c2aab3..67230758 100644[m
+[1m--- a/unityproject.userprefs[m
+[1m+++ b/unityproject.userprefs[m
+[36m@@ -3,7 +3,8 @@[m
+   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AjPlayerController.cs">[m
+     <Files>[m
+       <File FileName="Assets\Scripts\map_screen\HebrewLetters.cs" Line="34" Column="1" />[m
+[31m-      <File FileName="Assets\Scripts\AjPlayerController.cs" Line="448" Column="13" />[m
+[32m+[m[32m      <File FileName="Assets\Scripts\AjPlayerController.cs" Line="174" Column="29" />[m
+[32m+[m[32m      <File FileName="Assets\Scripts\PauseMenu.cs" Line="15" Column="21" />[m
+     </Files>[m
+   </MonoDevelop.Ide.Workbench>[m
+   <MonoDevelop.Ide.DebuggingService.Breakpoints>[m
+
+[33mcommit d706452ae32a7e5cac2f8da5365f959dc1230da4[m
+Author: Mihai Moiseanu <mihai.moiseanu@gmail.com>
+Date:   Mon Feb 20 15:53:40 2017 +0200
+
+    fixed coin count text
+
+[1mdiff --git a/Assets/Scenes/game.unity b/Assets/Scenes/game.unity[m
+[1mindex a3ebb480..468eef68 100644[m
+[1m--- a/Assets/Scenes/game.unity[m
+[1m+++ b/Assets/Scenes/game.unity[m
+[36m@@ -2758,7 +2758,7 @@[m [mMonoBehaviour:[m
+   m_Script: {fileID: 11500000, guid: 9de4d926ab43640be85bd621aae58152, type: 3}[m
+   m_Name: [m
+   m_EditorClassIdentifier: [m
+[31m-  coinText: {fileID: 0}[m
+[32m+[m[32m  coinText: {fileID: 175239486}[m
+   goCoins: {fileID: 0}[m
+   goDist: {fileID: 0}[m
+   distanceText: {fileID: 0}[m
+[1mdiff --git a/Assets/Scripts/AjPlayerController.cs b/Assets/Scripts/AjPlayerController.cs[m
+[1mindex dcba9f45..f12f0e5b 100644[m
+[1m--- a/Assets/Scripts/AjPlayerController.cs[m
+[1m+++ b/Assets/Scripts/AjPlayerController.cs[m
+[36m@@ -5,6 +5,7 @@[m [musing UnityEngine.UI;[m
+ [m
+ public class AjPlayerController : MonoBehaviour {[m
+ [m
+[32m+[m
+ 	public Light l1;[m
+ 	float lt;[m
+ 	bool narik = false;[m
+[36m@@ -430,7 +431,6 @@[m [mpublic class AjPlayerController : MonoBehaviour {[m
+ 				coinCount++;[m
+ 				//localLvlCounter++;[m
+ 			}[m
+[31m-[m
+ 			RaycastHit hit;[m
+ 			if (Physics.Raycast (transform.position, -Vector3.up, out hit, 0.28F)) {[m
+ 				if (hit.collider.tag == "ground" || hit.collider.tag == "blocks" || hit.collider.tag == "jumper") {[m
+[1mdiff --git a/Assets/Scripts/PauseMenu.cs b/Assets/Scripts/PauseMenu.cs[m
+[1mindex f419f7c0..c1028cb2 100644[m
+[1m--- a/Assets/Scripts/PauseMenu.cs[m
+[1m+++ b/Assets/Scripts/PauseMenu.cs[m
+[36m@@ -61,48 +61,48 @@[m [mpublic class PauseMenu : MonoBehaviour {[m
+ [m
+ 	void Update(){[m
+ 		if(LampCount != null){[m
+[31m-		LampCount.text = Controller.roundLife.ToString ();[m
+[31m-		if (Controller.die == true && end == false) {[m
+[32m+[m			[32mLampCount.text = AjPlayerController.roundLife.ToString ();[m
+[32m+[m			[32mif (AjPlayerController.die == true && end == false) {[m
+ 			Pause = true;	[m
+[31m-		} else if(Controller.die ==false && end ==true){[m
+[32m+[m			[32m} else if(AjPlayerController.die ==false && end ==true){[m
+ 			Pause = false;	[m
+ 		}[m
+[31m-		if (Controller.lifesave==true) {[m
+[32m+[m			[32mif (AjPlayerController.lifesave==true) {[m
+ 			Pause = true;[m
+ 			SavB.fillAmount -= Time.deltaTime/4F;[m
+[31m-		} else if(Controller.lifesave==false && Controller.die == false && isp == false){[m
+[32m+[m			[32m} else if(AjPlayerController.lifesave==false && AjPlayerController.die == false && isp == false){[m
+ 			Pause = false;	[m
+ 			SavB.fillAmount = 1;[m
+ 		}[m
+[31m-		if (Controller.stopGame == false) {[m
+[31m-			if (Controller.magnetOn == true) {[m
+[32m+[m			[32mif (AjPlayerController.stopGame == false) {[m
+[32m+[m				[32mif (AjPlayerController.magnetOn == true) {[m
+ 				magnit.enabled = true;[m
+ 				magnitBG.enabled = true;[m
+[31m-				magnit.fillAmount = Controller.timer7/Controller.MagnetTime;[m
+[32m+[m					[32mmagnit.fillAmount = AjPlayerController.timer7/AjPlayerController.MagnetTime;[m
+ 			} else {[m
+ 				magnit.fillAmount = 1;[m
+ 				magnit.enabled = false;[m
+ 				magnitBG.enabled = false;[m
+ 			}[m
+[31m-			if (Controller.botOn == true) {[m
+[32m+[m				[32mif (AjPlayerController.botOn == true) {[m
+ 				botu.enabled = true;[m
+ 				botuBG.enabled = true;[m
+[31m-				botu.fillAmount = Controller.timer4/Controller.BotsTime;[m
+[32m+[m					[32mbotu.fillAmount = AjPlayerController.timer4/AjPlayerController.BotsTime;[m
+ 			} else {[m
+ 				botu.fillAmount = 1;[m
+ 				botu.enabled = false;[m
+ 				botuBG.enabled = false;	[m
+ 			}[m
+[31m-			if (Controller.jPuck == true) {[m
+[32m+[m				[32mif (AjPlayerController.jPuck == true) {[m
+ 				kover.enabled = true;[m
+ 				koverBG.enabled = true;[m
+[31m-				kover.fillAmount -= Time.deltaTime/Controller.jPuckTime;[m
+[32m+[m					[32mkover.fillAmount -= Time.deltaTime/AjPlayerController.jPuckTime;[m
+ 			} else {[m
+ 				kover.fillAmount = 1;[m
+ 				kover.enabled = false;[m
+ 				koverBG.enabled = false;	[m
+ 			}[m
+[31m-			if (Controller.x2On == true) {[m
+[32m+[m				[32mif (AjPlayerController.x2On == true) {[m
+ 				rawX2.enabled = true;[m
+ 				rawX2BG.enabled = true;[m
+ 				rawX2.fillAmount = Controller.timer5/Controller.x2Time;[m
+[36m@@ -112,7 +112,7 @@[m [mpublic class PauseMenu : MonoBehaviour {[m
+ 				rawX2BG.enabled = false;	[m
+ 			}	[m
+ 		}[m
+[31m-		coinCount = Controller.coinCount;[m
+[32m+[m			[32mcoinCount = AjPlayerController.coinCount;[m
+ 		dist = (int)Generation.Distance;[m
+ 		goCoins.text = coinCount.ToString ();[m
+ 		goDist.text = dist.ToString ();[m
+[1mdiff --git a/Library/CurrentLayout.dwlt b/Library/CurrentLayout.dwlt[m
+[1mindex 4db54098..4fe93a5b 100644[m
+Binary files a/Library/CurrentLayout.dwlt and b/Library/CurrentLayout.dwlt differ
+[1mdiff --git a/Library/LastBuild.buildreport b/Library/LastBuild.buildreport[m
+[1mindex 6b944ce8..567f6b7f 100644[m
+Binary files a/Library/LastBuild.buildreport and b/Library/LastBuild.buildreport differ
+[1mdiff --git a/Library/LastSceneManagerSetup.txt b/Library/LastSceneManagerSetup.txt[m
+[1mindex db150dde..1152ffee 100644[m
+[1m--- a/Library/LastSceneManagerSetup.txt[m
+[1m+++ b/Library/LastSceneManagerSetup.txt[m
+[36m@@ -1,4 +1,4 @@[m
+ sceneSetups:[m
+[31m-- path: Assets/Scenes/mapScene.unity[m
+[32m+[m[32m- path: Assets/Scenes/game.unity[m
+   isLoaded: 1[m
+   isActive: 1[m
+[1mdiff --git a/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb b/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb[m
+[1mindex 27e1e98a..edc2a9dd 100644[m
+Binary files a/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb and b/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb differ
+[1mdiff --git a/Library/assetDatabase3 b/Library/assetDatabase3[m
+[1mindex c1d56cfe..cdd854c7 100644[m
+Binary files a/Library/assetDatabase3 and b/Library/assetDatabase3 differ
+[1mdiff --git a/Library/metadata/00/00000000000000004000000000000000 b/Library/metadata/00/00000000000000004000000000000000[m
+[1mindex 4c78544b..056a0718 100644[m
+Binary files a/Library/metadata/00/00000000000000004000000000000000 and b/Library/metadata/00/00000000000000004000000000000000 differ
+[1mdiff --git a/Library/metadata/18/18959937156a9484f860bc7fe223a567 b/Library/metadata/18/18959937156a9484f860bc7fe223a567[m
+[1mindex bebb4eee..e21cd3ab 100644[m
+Binary files a/Library/metadata/18/18959937156a9484f860bc7fe223a567 and b/Library/metadata/18/18959937156a9484f860bc7fe223a567 differ
+[1mdiff --git a/Library/metadata/18/18959937156a9484f860bc7fe223a567.info b/Library/metadata/18/18959937156a9484f860bc7fe223a567.info[m
+[1mindex 27892973..db161a06 100644[m
+Binary files a/Library/metadata/18/18959937156a9484f860bc7fe223a567.info and b/Library/metadata/18/18959937156a9484f860bc7fe223a567.info differ
+[1mdiff --git a/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3 b/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3[m
+[1mindex c231b432..67097085 100644[m
+Binary files a/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3 and b/Library/metadata/1e/1ec04d93c11114449ba3f173b18d9fb3 differ
+[1mdiff --git a/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19 b/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19[m
+[1mindex c9658d97..9c811853 100644[m
+Binary files a/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19 and b/Library/metadata/52/52a206b72a8f4f749c28d8b18b42dd19 differ
+[1mdiff --git a/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38 b/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38[m
+[1mindex 03bf6bf2..3fbe4049 100644[m
+Binary files a/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38 and b/Library/metadata/67/67e9dad5654047ebbe623cce9dbf7b38 differ
+[1mdiff --git a/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4 b/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4[m
+[1mindex 7c929498..dfd70384 100644[m
+Binary files a/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4 and b/Library/metadata/f4/f48df919adea4fa095a7407e773e5aa4 differ
+[1mdiff --git a/unityproject.apk b/unityproject.apk[m
+[1mindex b26f6193..b7d585b2 100644[m
+Binary files a/unityproject.apk and b/unityproject.apk differ
+[1mdiff --git a/unityproject.userprefs b/unityproject.userprefs[m
+[1mindex c5fc9353..f0c2aab3 100644[m
+[1m--- a/unityproject.userprefs[m
+[1m+++ b/unityproject.userprefs[m
+[36m@@ -2,15 +2,12 @@[m
+   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />[m
+   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AjPlayerController.cs">[m
+     <Files>[m
+[31m-      <File FileName="Assets\Scripts\map_screen\HebrewLetters.cs" Line="37" Column="1" />[m
+[31m-      <File FileName="Assets\Scripts\AjPlayerController.cs" Line="94" Column="42" />[m
+[31m-      <File FileName="Assets\Scripts\sController.cs" Line="7" Column="2" />[m
+[32m+[m[32m      <File FileName="Assets\Scripts\map_screen\HebrewLetters.cs" Line="34" Column="1" />[m
+[32m+[m[32m      <File FileName="Assets\Scripts\AjPlayerController.cs" Line="448" Column="13" />[m
+     </Files>[m
+   </MonoDevelop.Ide.Workbench>[m
+   <MonoDevelop.Ide.DebuggingService.Breakpoints>[m
+[31m-    <BreakpointStore>[m
+[31m-      <Breakpoint file="D:\Codegile Projects\unityproject\Assets\Scripts\map_screen\HebrewLetters.cs" line="34" column="1" />[m
+[31m-    </BreakpointStore>[m
+[32m+[m[32m    <BreakpointStore />[m
+   </MonoDevelop.Ide.DebuggingService.Breakpoints>[m
+   <MonoDevelop.Ide.DebuggingService.PinnedWatches />[m
+ </Properties>[m
+\ No newline at end of file[m
+
+[33mcommit 266dc8a42c2d0d748ae644d61d4a1905cd76aea4[m
+Author: Mihai Moiseanu <mihai.moiseanu@gmail.com>
+Date:   Thu Feb 16 14:19:45 2017 +0200
+
+     Added touch input for bullets \n Fixed Loading Sceene - now that we added map sceene we need to increment the index of game sceene \n
+
+[1mdiff --git a/Assembly-CSharp-Editor-firstpass.csproj b/Assembly-CSharp-Editor-firstpass.csproj[m
+[1mindex 0c0d9d4c..4364dfbd 100644[m
+[1m--- a/Assembly-CSharp-Editor-firstpass.csproj[m
+[1m+++ b/Assembly-CSharp-Editor-firstpass.csproj[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-<?xml version="1.0" encoding="utf-8"?>[m
+[32m+[m[32m﻿<?xml version="1.0" encoding="utf-8"?>[m
+ <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">[m
+   <PropertyGroup>[m
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>[m
+[36m@@ -19,7 +19,7 @@[m
+     <DebugType>full</DebugType>[m
+     <Optimize>false</Optimize>[m
+     <OutputPath>Temp\bin\Debug\</OutputPath>[m
+[31m-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_4_0;UNITY_5_4;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EDITOR_RETINA;ENABLE_RETINA_GUISTYLES;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_32;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT;ENABLE_DUCK_TYPING</DefineConstants>[m
+[32m+[m[32m    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_5_1;UNITY_5_5;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VIDEO;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT;ENABLE_DUCK_TYPING</DefineConstants>[m
+     <ErrorReport>prompt</ErrorReport>[m
+     <WarningLevel>4</WarningLevel>[m
+     <NoWarn>0169</NoWarn>[m
+[36m@@ -36,12 +36,13 @@[m
+     <Reference Include="System" />[m
+     <Reference Include="System.XML" />[m
+     <Reference Include="System.Core" />[m
+[32m+[m[32m    <Reference Include="System.Runtime.Serialization" />[m
+     <Reference Include="System.Xml.Linq" />[m
+     <Reference Include="UnityEngine">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+     </Reference>[m
+     <Reference Include="UnityEditor">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+     </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[36m@@ -313,40 +314,79 @@[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-km-rKH\base_strings.xml" />[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-zh-rTW\wallet_strings.xml" />[m
+  <Reference Include="UnityEditor.Advertisements">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="nunit.framework">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.EditorTestsRunner">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEngine.UI">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.UI">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEngine.Networking">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.Networking">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.PlaymodeTestsRunner">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/Editor/UnityEditor.PlaymodeTestsRunner.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.PlaymodeTestsRunner">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.TreeEditor">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.Analytics">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.Analytics">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.HoloLens">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.HoloLens">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.VR">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>[m
+  </Reference>[m
+[31m- <Reference Include="Google.ProtocolBuffers">[m
+[31m- <HintPath>F:/oneg-dev/unityproject/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>[m
+[32m+[m[32m <Reference Include="UnityEngine.VR">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.Graphs">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.Android.Extensions">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.WSA.Extensions">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.WebGL.Extensions">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.WindowsStandalone.Extensions">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="Mono.Cecil">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Xcode">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Common">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>[m
+  </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[1mdiff --git a/Assembly-CSharp-Editor.csproj b/Assembly-CSharp-Editor.csproj[m
+[1mindex bf5e3210..8f9bafe9 100644[m
+[1m--- a/Assembly-CSharp-Editor.csproj[m
+[1m+++ b/Assembly-CSharp-Editor.csproj[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-<?xml version="1.0" encoding="utf-8"?>[m
+[32m+[m[32m﻿<?xml version="1.0" encoding="utf-8"?>[m
+ <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">[m
+   <PropertyGroup>[m
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>[m
+[36m@@ -19,7 +19,7 @@[m
+     <DebugType>full</DebugType>[m
+     <Optimize>false</Optimize>[m
+     <OutputPath>Temp\bin\Debug\</OutputPath>[m
+[31m-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_4_0;UNITY_5_4;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EDITOR_RETINA;ENABLE_RETINA_GUISTYLES;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_32;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT;ENABLE_DUCK_TYPING</DefineConstants>[m
+[32m+[m[32m    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_5_1;UNITY_5_5;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VIDEO;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT;ENABLE_DUCK_TYPING</DefineConstants>[m
+     <ErrorReport>prompt</ErrorReport>[m
+     <WarningLevel>4</WarningLevel>[m
+     <NoWarn>0169</NoWarn>[m
+[36m@@ -36,12 +36,13 @@[m
+     <Reference Include="System" />[m
+     <Reference Include="System.XML" />[m
+     <Reference Include="System.Core" />[m
+[32m+[m[32m    <Reference Include="System.Runtime.Serialization" />[m
+     <Reference Include="System.Xml.Linq" />[m
+     <Reference Include="UnityEngine">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+     </Reference>[m
+     <Reference Include="UnityEditor">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+     </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[36m@@ -296,40 +297,79 @@[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-km-rKH\base_strings.xml" />[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-zh-rTW\wallet_strings.xml" />[m
+  <Reference Include="UnityEditor.Advertisements">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="nunit.framework">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.EditorTestsRunner">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEngine.UI">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.UI">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEngine.Networking">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.Networking">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.PlaymodeTestsRunner">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/Editor/UnityEditor.PlaymodeTestsRunner.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.PlaymodeTestsRunner">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.TreeEditor">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.Analytics">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.Analytics">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.HoloLens">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.HoloLens">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.VR">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>[m
+  </Reference>[m
+[31m- <Reference Include="Google.ProtocolBuffers">[m
+[31m- <HintPath>F:/oneg-dev/unityproject/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>[m
+[32m+[m[32m <Reference Include="UnityEngine.VR">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.Graphs">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.Android.Extensions">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.WSA.Extensions">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.WebGL.Extensions">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEditor.WindowsStandalone.Extensions">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="Mono.Cecil">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Xcode">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Common">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>[m
+  </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[1mdiff --git a/Assembly-CSharp-firstpass.csproj b/Assembly-CSharp-firstpass.csproj[m
+[1mindex a13e33af..abfc8ce8 100644[m
+[1m--- a/Assembly-CSharp-firstpass.csproj[m
+[1m+++ b/Assembly-CSharp-firstpass.csproj[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-<?xml version="1.0" encoding="utf-8"?>[m
+[32m+[m[32m﻿<?xml version="1.0" encoding="utf-8"?>[m
+ <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">[m
+   <PropertyGroup>[m
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>[m
+[36m@@ -19,7 +19,7 @@[m
+     <DebugType>full</DebugType>[m
+     <Optimize>false</Optimize>[m
+     <OutputPath>Temp\bin\Debug\</OutputPath>[m
+[31m-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_4_0;UNITY_5_4;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EDITOR_RETINA;ENABLE_RETINA_GUISTYLES;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_32;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT</DefineConstants>[m
+[32m+[m[32m    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_5_1;UNITY_5_5;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VIDEO;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT</DefineConstants>[m
+     <ErrorReport>prompt</ErrorReport>[m
+     <WarningLevel>4</WarningLevel>[m
+     <NoWarn>0169</NoWarn>[m
+[36m@@ -36,12 +36,13 @@[m
+     <Reference Include="System" />[m
+     <Reference Include="System.XML" />[m
+     <Reference Include="System.Core" />[m
+[32m+[m[32m    <Reference Include="System.Runtime.Serialization" />[m
+     <Reference Include="System.Xml.Linq" />[m
+     <Reference Include="UnityEngine">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+     </Reference>[m
+     <Reference Include="UnityEditor">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+     </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[36m@@ -344,13 +345,31 @@[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-km-rKH\base_strings.xml" />[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-zh-rTW\wallet_strings.xml" />[m
+  <Reference Include="UnityEngine.UI">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEngine.Networking">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+  </Reference>[m
+[31m- <Reference Include="Google.ProtocolBuffers">[m
+[31m- <HintPath>F:/oneg-dev/unityproject/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>[m
+[32m+[m[32m <Reference Include="UnityEngine.PlaymodeTestsRunner">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.Analytics">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.HoloLens">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.VR">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="Mono.Cecil">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Xcode">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Common">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>[m
+  </Reference>[m
+   </ItemGroup>[m
+   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />[m
+[1mdiff --git a/Assembly-CSharp.csproj b/Assembly-CSharp.csproj[m
+[1mindex b44a0a64..69398e40 100644[m
+[1m--- a/Assembly-CSharp.csproj[m
+[1m+++ b/Assembly-CSharp.csproj[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-<?xml version="1.0" encoding="utf-8"?>[m
+[32m+[m[32m﻿<?xml version="1.0" encoding="utf-8"?>[m
+ <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">[m
+   <PropertyGroup>[m
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>[m
+[36m@@ -19,7 +19,7 @@[m
+     <DebugType>full</DebugType>[m
+     <Optimize>false</Optimize>[m
+     <OutputPath>Temp\bin\Debug\</OutputPath>[m
+[31m-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_4_0;UNITY_5_4;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EDITOR_RETINA;ENABLE_RETINA_GUISTYLES;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_SPRITE_POLYGON;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_LOCALIZATION;ENABLE_ANDROID_ATLAS_ETC1_COMPRESSION;ENABLE_EDITOR_TESTS_RUNNER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_32;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT</DefineConstants>[m
+[32m+[m[32m    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_5_1;UNITY_5_5;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VIDEO;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT</DefineConstants>[m
+     <ErrorReport>prompt</ErrorReport>[m
+     <WarningLevel>4</WarningLevel>[m
+     <NoWarn>0169</NoWarn>[m
+[36m@@ -36,12 +36,13 @@[m
+     <Reference Include="System" />[m
+     <Reference Include="System.XML" />[m
+     <Reference Include="System.Core" />[m
+[32m+[m[32m    <Reference Include="System.Runtime.Serialization" />[m
+     <Reference Include="System.Xml.Linq" />[m
+     <Reference Include="UnityEngine">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>[m
+     </Reference>[m
+     <Reference Include="UnityEditor">[m
+[31m-      <HintPath>F:/ProgramsUnity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+[32m+[m[32m      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>[m
+     </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[36m@@ -326,13 +327,31 @@[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-km-rKH\base_strings.xml" />[m
+      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-zh-rTW\wallet_strings.xml" />[m
+  <Reference Include="UnityEngine.UI">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>[m
+  </Reference>[m
+  <Reference Include="UnityEngine.Networking">[m
+[31m- <HintPath>F:/ProgramsUnity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>[m
+  </Reference>[m
+[31m- <Reference Include="Google.ProtocolBuffers">[m
+[31m- <HintPath>F:/oneg-dev/unityproject/Assets/Plugins/Google.ProtocolBuffers.dll</HintPath>[m
+[32m+[m[32m <Reference Include="UnityEngine.PlaymodeTestsRunner">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.Analytics">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.HoloLens">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEngine.VR">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="Mono.Cecil">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Xcode">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>[m
+[32m+[m[32m </Reference>[m
+[32m+[m[32m <Reference Include="UnityEditor.iOS.Extensions.Common">[m
+[32m+[m[32m <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>[m
+  </Reference>[m
+   </ItemGroup>[m
+   <ItemGroup>[m
+[1mdiff --git a/Assets/Meshes/Obstracles/new mesh obstacles/Barrel B.obj.meta b/Assets/Meshes/Obstracles/new mesh obstacles/Barrel B.obj.meta[m
+[1mdeleted file mode 100644[m
+[1mindex 17398f6f..00000000[m
+[1m--- a/Assets/Meshes/Obstracles/new mesh obstacles/Barrel B.obj.meta[m	
+[1m+++ /dev/null[m
+[36m@@ -1,78 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: 510cb6c3b6cc543928ed2b49736683b0[m
+[31m-timeCreated: 1470906527[m
+[31m-licenseType: Free[m
+[31m-ModelImporter:[m
+[31m-  serializedVersion: 19[m
+[31m-  fileIDToRecycleName:[m
+[31m-    100000: //RootNode[m
+[31m-    100002: barrel_barrel_Barrel[m
+[31m-    400000: //RootNode[m
+[31m-    400002: barrel_barrel_Barrel[m
+[31m-    2300000: barrel_barrel_Barrel[m
+[31m-    3300000: barrel_barrel_Barrel[m
+[31m-    4300000: barrel_barrel_Barrel[m
+[31m-  materials:[m
+[31m-    importMaterials: 1[m
+[31m-    materialName: 0[m
+[31m-    materialSearch: 1[m
+[31m-  animations:[m
+[31m-    legacyGenerateAnimations: 4[m
+[31m-    bakeSimulation: 0[m
+[31m-    resampleRotations: 1[m
+[31m-    optimizeGameObjects: 0[m
+[31m-    motionNodeName: [m
+[31m-    animationImportErrors: [m
+[31m-    animationImportWarnings: [m
+[31m-    animationRetargetingWarnings: [m
+[31m-    animationDoRetargetingWarnings: 0[m
+[31m-    animationCompression: 1[m
+[31m-    animationRotationError: 0.5[m
+[31m-    animationPositionError: 0.5[m
+[31m-    animationScaleError: 0.5[m
+[31m-    animationWrapMode: 0[m
+[31m-    extraExposedTransformPaths: [][m
+[31m-    clipAnimations: [][m
+[31m-    isReadable: 1[m
+[31m-  meshes:[m
+[31m-    lODScreenPercentages: [][m
+[31m-    globalScale: 1[m
+[31m-    meshCompression: 0[m
+[31m-    addColliders: 0[m
+[31m-    importBlendShapes: 1[m
+[31m-    swapUVChannels: 0[m
+[31m-    generateSecondaryUV: 0[m
+[31m-    useFileUnits: 1[m
+[31m-    optimizeMeshForGPU: 1[m
+[31m-    keepQuads: 0[m
+[31m-    weldVertices: 1[m
+[31m-    secondaryUVAngleDistortion: 8[m
+[31m-    secondaryUVAreaDistortion: 15.000001[m
+[31m-    secondaryUVHardAngle: 88[m
+[31m-    secondaryUVPackMargin: 4[m
+[31m-    useFileScale: 1[m
+[31m-  tangentSpace:[m
+[31m-    normalSmoothAngle: 60[m
+[31m-    normalImportMode: 0[m
+[31m-    tangentImportMode: 3[m
+[31m-  importAnimation: 1[m
+[31m-  copyAvatar: 0[m
+[31m-  humanDescription:[m
+[31m-    human: [][m
+[31m-    skeleton: [][m
+[31m-    armTwist: 0.5[m
+[31m-    foreArmTwist: 0.5[m
+[31m-    upperLegTwist: 0.5[m
+[31m-    legTwist: 0.5[m
+[31m-    armStretch: 0.05[m
+[31m-    legStretch: 0.05[m
+[31m-    feetSpacing: 0[m
+[31m-    rootMotionBoneName: [m
+[31m-    hasTranslationDoF: 0[m
+[31m-  lastHumanDescriptionAvatarSource: {instanceID: 0}[m
+[31m-  animationType: 0[m
+[31m-  humanoidOversampling: 1[m
+[31m-  additionalBone: 0[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Meshes/Obstracles/new mesh obstacles/Metal.obj.meta b/Assets/Meshes/Obstracles/new mesh obstacles/Metal.obj.meta[m
+[1mdeleted file mode 100644[m
+[1mindex 19a8c10e..00000000[m
+[1m--- a/Assets/Meshes/Obstracles/new mesh obstacles/Metal.obj.meta[m	
+[1m+++ /dev/null[m
+[36m@@ -1,78 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: f784f7919f86b4f0589a444f2f1b27fe[m
+[31m-timeCreated: 1470906753[m
+[31m-licenseType: Free[m
+[31m-ModelImporter:[m
+[31m-  serializedVersion: 19[m
+[31m-  fileIDToRecycleName:[m
+[31m-    100000: BarrelM_MeshG_G[m
+[31m-    100002: //RootNode[m
+[31m-    400000: BarrelM_MeshG_G[m
+[31m-    400002: //RootNode[m
+[31m-    2300000: BarrelM_MeshG_G[m
+[31m-    3300000: BarrelM_MeshG_G[m
+[31m-    4300000: BarrelM_MeshG_G[m
+[31m-  materials:[m
+[31m-    importMaterials: 1[m
+[31m-    materialName: 0[m
+[31m-    materialSearch: 1[m
+[31m-  animations:[m
+[31m-    legacyGenerateAnimations: 4[m
+[31m-    bakeSimulation: 0[m
+[31m-    resampleRotations: 1[m
+[31m-    optimizeGameObjects: 0[m
+[31m-    motionNodeName: [m
+[31m-    animationImportErrors: [m
+[31m-    animationImportWarnings: [m
+[31m-    animationRetargetingWarnings: [m
+[31m-    animationDoRetargetingWarnings: 0[m
+[31m-    animationCompression: 1[m
+[31m-    animationRotationError: 0.5[m
+[31m-    animationPositionError: 0.5[m
+[31m-    animationScaleError: 0.5[m
+[31m-    animationWrapMode: 0[m
+[31m-    extraExposedTransformPaths: [][m
+[31m-    clipAnimations: [][m
+[31m-    isReadable: 1[m
+[31m-  meshes:[m
+[31m-    lODScreenPercentages: [][m
+[31m-    globalScale: 1[m
+[31m-    meshCompression: 0[m
+[31m-    addColliders: 0[m
+[31m-    importBlendShapes: 1[m
+[31m-    swapUVChannels: 0[m
+[31m-    generateSecondaryUV: 0[m
+[31m-    useFileUnits: 1[m
+[31m-    optimizeMeshForGPU: 1[m
+[31m-    keepQuads: 0[m
+[31m-    weldVertices: 1[m
+[31m-    secondaryUVAngleDistortion: 8[m
+[31m-    secondaryUVAreaDistortion: 15.000001[m
+[31m-    secondaryUVHardAngle: 88[m
+[31m-    secondaryUVPackMargin: 4[m
+[31m-    useFileScale: 1[m
+[31m-  tangentSpace:[m
+[31m-    normalSmoothAngle: 60[m
+[31m-    normalImportMode: 0[m
+[31m-    tangentImportMode: 3[m
+[31m-  importAnimation: 1[m
+[31m-  copyAvatar: 0[m
+[31m-  humanDescription:[m
+[31m-    human: [][m
+[31m-    skeleton: [][m
+[31m-    armTwist: 0.5[m
+[31m-    foreArmTwist: 0.5[m
+[31m-    upperLegTwist: 0.5[m
+[31m-    legTwist: 0.5[m
+[31m-    armStretch: 0.05[m
+[31m-    legStretch: 0.05[m
+[31m-    feetSpacing: 0[m
+[31m-    rootMotionBoneName: [m
+[31m-    hasTranslationDoF: 0[m
+[31m-  lastHumanDescriptionAvatarSource: {instanceID: 0}[m
+[31m-  animationType: 0[m
+[31m-  humanoidOversampling: 1[m
+[31m-  additionalBone: 0[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Meshes/Obstracles/new mesh obstacles/rocks_01_model.obj.meta b/Assets/Meshes/Obstracles/new mesh obstacles/rocks_01_model.obj.meta[m
+[1mdeleted file mode 100644[m
+[1mindex bf9efa6f..00000000[m
+[1m--- a/Assets/Meshes/Obstracles/new mesh obstacles/rocks_01_model.obj.meta[m	
+[1m+++ /dev/null[m
+[36m@@ -1,98 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: ef6aedc2d884e4774bc12b5ea0c80361[m
+[31m-timeCreated: 1470914779[m
+[31m-licenseType: Free[m
+[31m-ModelImporter:[m
+[31m-  serializedVersion: 19[m
+[31m-  fileIDToRecycleName:[m
+[31m-    100000: rock_01[m
+[31m-    100002: rock_02[m
+[31m-    100004: rock_03[m
+[31m-    100006: rock_04[m
+[31m-    100008: rock_05[m
+[31m-    100010: //RootNode[m
+[31m-    400000: rock_01[m
+[31m-    400002: rock_02[m
+[31m-    400004: rock_03[m
+[31m-    400006: rock_04[m
+[31m-    400008: rock_05[m
+[31m-    400010: //RootNode[m
+[31m-    2300000: rock_01[m
+[31m-    2300002: rock_02[m
+[31m-    2300004: rock_03[m
+[31m-    2300006: rock_04[m
+[31m-    2300008: rock_05[m
+[31m-    3300000: rock_01[m
+[31m-    3300002: rock_02[m
+[31m-    3300004: rock_03[m
+[31m-    3300006: rock_04[m
+[31m-    3300008: rock_05[m
+[31m-    4300000: rock_01[m
+[31m-    4300002: rock_02[m
+[31m-    4300004: rock_03[m
+[31m-    4300006: rock_04[m
+[31m-    4300008: rock_05[m
+[31m-  materials:[m
+[31m-    importMaterials: 1[m
+[31m-    materialName: 0[m
+[31m-    materialSearch: 1[m
+[31m-  animations:[m
+[31m-    legacyGenerateAnimations: 4[m
+[31m-    bakeSimulation: 0[m
+[31m-    resampleRotations: 1[m
+[31m-    optimizeGameObjects: 0[m
+[31m-    motionNodeName: [m
+[31m-    animationImportErrors: [m
+[31m-    animationImportWarnings: [m
+[31m-    animationRetargetingWarnings: [m
+[31m-    animationDoRetargetingWarnings: 0[m
+[31m-    animationCompression: 1[m
+[31m-    animationRotationError: 0.5[m
+[31m-    animationPositionError: 0.5[m
+[31m-    animationScaleError: 0.5[m
+[31m-    animationWrapMode: 0[m
+[31m-    extraExposedTransformPaths: [][m
+[31m-    clipAnimations: [][m
+[31m-    isReadable: 1[m
+[31m-  meshes:[m
+[31m-    lODScreenPercentages: [][m
+[31m-    globalScale: 1[m
+[31m-    meshCompression: 0[m
+[31m-    addColliders: 0[m
+[31m-    importBlendShapes: 1[m
+[31m-    swapUVChannels: 0[m
+[31m-    generateSecondaryUV: 0[m
+[31m-    useFileUnits: 1[m
+[31m-    optimizeMeshForGPU: 1[m
+[31m-    keepQuads: 0[m
+[31m-    weldVertices: 1[m
+[31m-    secondaryUVAngleDistortion: 8[m
+[31m-    secondaryUVAreaDistortion: 15.000001[m
+[31m-    secondaryUVHardAngle: 88[m
+[31m-    secondaryUVPackMargin: 4[m
+[31m-    useFileScale: 1[m
+[31m-  tangentSpace:[m
+[31m-    normalSmoothAngle: 60[m
+[31m-    normalImportMode: 0[m
+[31m-    tangentImportMode: 3[m
+[31m-  importAnimation: 1[m
+[31m-  copyAvatar: 0[m
+[31m-  humanDescription:[m
+[31m-    human: [][m
+[31m-    skeleton: [][m
+[31m-    armTwist: 0.5[m
+[31m-    foreArmTwist: 0.5[m
+[31m-    upperLegTwist: 0.5[m
+[31m-    legTwist: 0.5[m
+[31m-    armStretch: 0.05[m
+[31m-    legStretch: 0.05[m
+[31m-    feetSpacing: 0[m
+[31m-    rootMotionBoneName: [m
+[31m-    hasTranslationDoF: 0[m
+[31m-  lastHumanDescriptionAvatarSource: {instanceID: 0}[m
+[31m-  animationType: 0[m
+[31m-  humanoidOversampling: 1[m
+[31m-  additionalBone: 0[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Plugins/Google.ProtocolBuffers.dll.meta b/Assets/Plugins/Google.ProtocolBuffers.dll.meta[m
+[1mdeleted file mode 100644[m
+[1mindex 512d4532..00000000[m
+[1m--- a/Assets/Plugins/Google.ProtocolBuffers.dll.meta[m
+[1m+++ /dev/null[m
+[36m@@ -1,24 +0,0 @@[m
+[31m-fileFormatVersion: 2[m
+[31m-guid: eb0b9a42141e349a6a47f93165aeca3f[m
+[31m-timeCreated: 1462046662[m
+[31m-licenseType: Pro[m
+[31m-PluginImporter:[m
+[31m-  serializedVersion: 1[m
+[31m-  iconMap: {}[m
+[31m-  executionOrder: {}[m
+[31m-  isPreloaded: 0[m
+[31m-  platformData:[m
+[31m-    Any:[m
+[31m-      enabled: 1[m
+[31m-      settings: {}[m
+[31m-    Editor:[m
+[31m-      enabled: 0[m
+[31m-      settings:[m
+[31m-        DefaultValueInitialized: true[m
+[31m-    WindowsStoreApps:[m
+[31m-      enabled: 0[m
+[31m-      settings:[m
+[31m-        CPU: AnyCPU[m
+[31m-  userData: [m
+[31m-  assetBundleName: [m
+[31m-  assetBundleVariant: [m
+[1mdiff --git a/Assets/Scenes/mapScene.unity b/Assets/Scenes/mapScene.unity[m
+[1mindex 2d3eac47..6193447e 100644[m
+[1m--- a/Assets/Scenes/mapScene.unity[m
+[1m+++ b/Assets/Scenes/mapScene.unity[m
+[36m@@ -1,15 +1,15 @@[m
+ %YAML 1.1[m
+ %TAG !u! tag:unity3d.com,2011:[m
+ --- !u!29 &1[m
+[31m-SceneSettings:[m
+[32m+[m[32mOcclusionCullingSettings:[m
+   m_ObjectHideFlags: 0[m
+[31m-  m_PVSData: [m
+[31m-  m_PVSObjectsArray: [][m
+[31m-  m_PVSPortalsArray: [][m
+[32m+[m[32m  serializedVersion: 2[m
+   m_OcclusionBakeSettings:[m
+     smallestOccluder: 5[m
+     smallestHole: 0.25[m
+     backfaceThreshold: 100[m
+[32m+[m[32m  m_SceneGUID: 00000000000000000000000000000000[m
+[32m+[m[32m  m_OcclusionCullingData: {fileID: 0}[m
+ --- !u!104 &2[m
+ RenderSettings:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -79,16 +79,17 @@[m [mNavMeshSettings:[m
+   m_ObjectHideFlags: 0[m
+   m_BuildSettings:[m
+     serializedVersion: 2[m
+[32m+[m[32m    agentTypeID: 0[m
+     agentRadius: 0.5[m
+     agentHeight: 2[m
+     agentSlope: 45[m
+     agentClimb: 0.4[m
+     ledgeDropHeight: 0[m
+     maxJumpAcrossDistance: 0[m
+[31m-    accuratePlacement: 0[m
+     minRegionArea: 2[m
+[31m-    cellSize: 0.16666667[m
+     manualCellSize: 0[m
+[32m+[m[32m    cellSize: 0.16666667[m
+[32m+[m[32m    accuratePlacement: 0[m
+   m_NavMeshData: {fileID: 0}[m
+ --- !u!224 &1739513 stripped[m
+ RectTransform:[m
+[36m@@ -1646,6 +1647,76 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 1773acf1a8825de4293066f8f6a5532c, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &400561550 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 693338969}[m
+[32m+[m[32m--- !u!114 &400561553[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 400561550}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &404849595 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 441709618}[m
+[32m+[m[32m--- !u!114 &404849598[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 404849595}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!224 &406752279 stripped[m
+ RectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[36m@@ -1755,6 +1826,41 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 1773acf1a8825de4293066f8f6a5532c, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &429467425 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1310877780}[m
+[32m+[m[32m--- !u!114 &429467428[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 429467425}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1001 &433492190[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -2389,6 +2495,41 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: c114a6ff486beb248b4b5d14b3113785, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &512163250 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1794486869}[m
+[32m+[m[32m--- !u!114 &512163253[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 512163250}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1001 &518982529[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -2597,15 +2738,190 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 1773acf1a8825de4293066f8f6a5532c, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &548755686 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 2057563412}[m
+[32m+[m[32m--- !u!114 &548755689[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 548755686}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &594171059 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1292049301}[m
+[32m+[m[32m--- !u!114 &594171062[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 594171059}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &607608966 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 2121015720}[m
+[32m+[m[32m--- !u!114 &607608969[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 607608966}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &622544282 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1516030418}[m
+[32m+[m[32m--- !u!114 &622544285[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 622544282}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &625958972 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1644285646}[m
+[32m+[m[32m--- !u!114 &625958975[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 625958972}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1 &659056505[m
+ GameObject:[m
+   m_ObjectHideFlags: 0[m
+   m_PrefabParentObject: {fileID: 0}[m
+   m_PrefabInternal: {fileID: 0}[m
+[31m-  serializedVersion: 4[m
+[32m+[m[32m  serializedVersion: 5[m
+   m_Component:[m
+[31m-  - 4: {fileID: 659056507}[m
+[31m-  - 108: {fileID: 659056506}[m
+[32m+[m[32m  - component: {fileID: 659056507}[m
+[32m+[m[32m  - component: {fileID: 659056506}[m
+   m_Layer: 0[m
+   m_Name: Directional Light[m
+   m_TagString: Untagged[m
+[36m@@ -2656,10 +2972,10 @@[m [mTransform:[m
+   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}[m
+   m_LocalPosition: {x: 0, y: 3, z: 0}[m
+   m_LocalScale: {x: 1, y: 1, z: 1}[m
+[31m-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}[m
+   m_Children: [][m
+   m_Father: {fileID: 0}[m
+   m_RootOrder: 1[m
+[32m+[m[32m  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}[m
+ --- !u!1001 &693338969[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -2774,6 +3090,41 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &739988797 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1081586529}[m
+[32m+[m[32m--- !u!114 &739988800[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 739988797}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!224 &744240924 stripped[m
+ RectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[36m@@ -2784,6 +3135,41 @@[m [mRectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+     type: 2}[m
+   m_PrefabInternal: {fileID: 1516030418}[m
+[32m+[m[32m--- !u!1 &760818533 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 368954872}[m
+[32m+[m[32m--- !u!114 &760818536[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 760818533}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1001 &777566007[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -2903,10 +3289,10 @@[m [mGameObject:[m
+   m_ObjectHideFlags: 0[m
+   m_PrefabParentObject: {fileID: 0}[m
+   m_PrefabInternal: {fileID: 0}[m
+[31m-  serializedVersion: 4[m
+[32m+[m[32m  serializedVersion: 5[m
+   m_Component:[m
+[31m-  - 224: {fileID: 780439168}[m
+[31m-  - 114: {fileID: 780439169}[m
+[32m+[m[32m  - component: {fileID: 780439168}[m
+[32m+[m[32m  - component: {fileID: 780439169}[m
+   m_Layer: 5[m
+   m_Name: Container[m
+   m_TagString: Untagged[m
+[36m@@ -2923,13 +3309,13 @@[m [mRectTransform:[m
+   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}[m
+   m_LocalPosition: {x: 0, y: 0, z: 0}[m
+   m_LocalScale: {x: 1, y: 1, z: 1}[m
+[31m-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}[m
+   m_Children:[m
+   - {fileID: 325347931}[m
+   - {fileID: 325252797}[m
+   - {fileID: 938112950}[m
+   m_Father: {fileID: 1943527977}[m
+   m_RootOrder: 0[m
+[32m+[m[32m  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}[m
+   m_AnchorMin: {x: 0.5, y: 0.5}[m
+   m_AnchorMax: {x: 0.5, y: 0.5}[m
+   m_AnchoredPosition: {x: 49, y: 87}[m
+[36m@@ -3159,6 +3545,41 @@[m [mRectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+     type: 2}[m
+   m_PrefabInternal: {fileID: 1862733305}[m
+[32m+[m[32m--- !u!1 &859815147 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 777566007}[m
+[32m+[m[32m--- !u!114 &859815150[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 859815147}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!224 &868000230 stripped[m
+ RectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[36m@@ -3278,6 +3699,41 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 2684092966eef2f49a186aa36e5e192c, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &902793556 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 287056126}[m
+[32m+[m[32m--- !u!114 &902793559[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 902793556}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!224 &908632043 stripped[m
+ RectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[36m@@ -3600,6 +4056,76 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &974671502 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 2118891435}[m
+[32m+[m[32m--- !u!114 &974671505[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 974671502}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &996655724 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1129495415}[m
+[32m+[m[32m--- !u!114 &996655727[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 996655724}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1001 &1002304031[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -3824,6 +4350,76 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &1073656224 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1428617227}[m
+[32m+[m[32m--- !u!114 &1073656227[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1073656224}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &1075432993 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1043074199}[m
+[32m+[m[32m--- !u!114 &1075432996[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1075432993}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1001 &1081586529[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -4052,6 +4648,41 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &1131643514 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1836542164}[m
+[32m+[m[32m--- !u!114 &1131643517[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1131643514}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!224 &1131814197 stripped[m
+ RectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[36m@@ -4261,6 +4892,76 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &1229142601 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1224743230}[m
+[32m+[m[32m--- !u!114 &1229142604[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1229142601}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &1231289057 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1208545600}[m
+[32m+[m[32m--- !u!114 &1231289060[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1231289057}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!1001 &1292049301[m
+ Prefab:[m
+   m_ObjectHideFlags: 0[m
+[36m@@ -4687,11 +5388,116 @@[m [mPrefab:[m
+     m_RemovedComponents: [][m
+   m_ParentPrefab: {fileID: 100100000, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb, type: 2}[m
+   m_IsPrefabParent: 0[m
+[32m+[m[32m--- !u!1 &1319386562 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1313072079}[m
+[32m+[m[32m--- !u!114 &1319386565[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1319386562}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+[32m+[m[32m--- !u!1 &1357341571 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 1594469286}[m
+[32m+[m[32m--- !u!114 &1357341574[m
+[32m+[m[32mMonoBehaviour:[m
+[32m+[m[32m  m_ObjectHideFlags: 0[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 0}[m
+[32m+[m[32m  m_PrefabInternal: {fileID: 0}[m
+[32m+[m[32m  m_GameObject: {fileID: 1357341571}[m
+[32m+[m[32m  m_Enabled: 1[m
+[32m+[m[32m  m_EditorHideFlags: 0[m
+[32m+[m[32m  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}[m
+[32m+[m[32m  m_Name:[m[41m [m
+[32m+[m[32m  m_EditorClassIdentifier:[m[41m [m
+[32m+[m[32m  m_Delegates:[m
+[32m+[m[32m  - eventID: 4[m
+[32m+[m[32m    callback:[m
+[32m+[m[32m      m_PersistentCalls:[m
+[32m+[m[32m        m_Calls:[m
+[32m+[m[32m        - m_Target: {fileID: 1827931136}[m
+[32m+[m[32m          m_MethodName: begginGame[m
+[32m+[m[32m          m_Mode: 1[m
+[32m+[m[32m          m_Arguments:[m
+[32m+[m[32m            m_ObjectArgument: {fileID: 0}[m
+[32m+[m[32m            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine[m
+[32m+[m[32m            m_IntArgument: 0[m
+[32m+[m[32m            m_FloatArgument: 0[m
+[32m+[m[32m            m_StringArgument:[m[41m [m
+[32m+[m[32m            m_BoolArgument: 0[m
+[32m+[m[32m          m_CallState: 2[m
+[32m+[m[32m      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,[m
+[32m+[m[32m        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null[m
+[32m+[m[32m  delegates: [][m
+ --- !u!224 &1357522138 stripped[m
+ RectTransform:[m
+   m_PrefabParentObject: {fileID: 224000011408651032, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+     type: 2}[m
+   m_PrefabInternal: {fileID: 1043074199}[m
+[32m+[m[32m--- !u!1 &1357546669 stripped[m
+[32m+[m[32mGameObject:[m
+[32m+[m[32m  m_PrefabParentObject: {fileID: 1000013905007406, guid: 59e65d42b9fc42d4bbcef27ce50c1bcb,[m
+[32m+[m[32m    type: 2}[m
+[32m+[m[32m  m_PrefabInte

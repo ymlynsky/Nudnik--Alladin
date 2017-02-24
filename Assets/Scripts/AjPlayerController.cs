@@ -409,6 +409,9 @@ public class AjPlayerController : MonoBehaviour
 					}		
 					if (localLvlCounter == levelLimit || localLvlCounter > levelLimit) {
 
+						int level=PlayerPrefs.GetInt ("level");
+						level++;
+						PlayerPrefs.SetInt ("level", level);
 						PauseMenu.Paused ();
 						isChooseLetterActive = true;
 

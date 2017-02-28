@@ -317,7 +317,6 @@ public class AjPlayerController : MonoBehaviour
 					timer3 = 0;
 					sc.enabled = true;
 					cc.enabled = true;
-					crouch = false;
 				}
 			}
 			if (crouch) {
@@ -375,7 +374,11 @@ public class AjPlayerController : MonoBehaviour
 			}
 			// end keyboard------------------------------<<<//
 			RaycastHit toDie;
-			if (Physics.Raycast (dieRay.transform.position, Vector3.forward, out toDie, 0.5F)) {
+			Ray ray=new Ray();
+
+			ray.origin = dieRay.transform.position;
+			ray.direction = Vector3.forward;
+			if (Physics.Raycast (ray, out toDie, 0.15F)) {
 				if (toDie.collider.tag == "blocks" || toDie.collider.tag == "otherblock") {
 					PauseMenu.Paused ();
 					if (roundLife > 0 && lifesave == false) {
@@ -391,6 +394,7 @@ public class AjPlayerController : MonoBehaviour
 					}
 				}
 			}
+			Debug.DrawRay (ray.origin, ray.direction,Color.red,0.1f);
 			if (narik) {
 				Kolyan ();
 			}
@@ -715,14 +719,15 @@ public class AjPlayerController : MonoBehaviour
 	{
 
 		characterAnimator.SetTrigger ("slideSelected");
-	
+		StartCoroutine (crouchWait ());
+		cc.enabled = false;
+		sc.enabled = true;
 		/*if (isGround == true && jPuck == false) {
 			fs.volume = 0.9F;
 			fs.clip = swipeSound;
 			fs.Play ();
-			cc.enabled = false;
-			sc.enabled = true;
-			crouch = true;
+
+
 
 			//int rN = UnityEngine.Random.Range (0, 3);
 			this.GetComponent<Rigidbody> ().AddForce (-Vector3.up, ForceMode.VelocityChange);
@@ -739,6 +744,13 @@ public class AjPlayerController : MonoBehaviour
 		am.volume = 1F;
 		am.Play ();
 		yield return null;
+	}
+
+	IEnumerator crouchWait(){
+		crouch = true;
+		yield return new WaitForSeconds (1f);
+		crouch = false;
+		timer3 = 0;
 	}
 
 }

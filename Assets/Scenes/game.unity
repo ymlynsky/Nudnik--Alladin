@@ -650,7 +650,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 413586, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: m_LocalPosition.x
@@ -775,12 +775,12 @@ Prefab:
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 4419596514265202, guid: 733b1b28e9aba41ca8288b8276c57aae,
+      objectReference: {fileID: 4680433711215008, guid: d641c68441438470ab8a0b1e512510d8,
         type: 2}
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 4680433711215008, guid: d641c68441438470ab8a0b1e512510d8,
+      objectReference: {fileID: 4392901690780282, guid: 3e125ab1a937f4d15b44df006f559263,
         type: 2}
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[3]
@@ -2477,7 +2477,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1177959944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.445, z: 0}
+  m_LocalPosition: {x: -0.089, y: 0.568, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1172304654}
@@ -2856,6 +2856,14 @@ Prefab:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1239401959547220, guid: 3e125ab1a937f4d15b44df006f559263, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1553964882385498, guid: 3e125ab1a937f4d15b44df006f559263, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577859780162312, guid: 3e125ab1a937f4d15b44df006f559263, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -3363,7 +3371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1002690621934034, guid: d641c68441438470ab8a0b1e512510d8, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1880681874808972, guid: d641c68441438470ab8a0b1e512510d8, type: 2}
       propertyPath: m_IsActive
@@ -3371,7 +3379,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1988025846142324, guid: d641c68441438470ab8a0b1e512510d8, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d641c68441438470ab8a0b1e512510d8, type: 2}
@@ -4132,15 +4140,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473944, guid: 80c0b5e0b0479894daf6ba560a12504a, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -44.8
+      value: -44.80005
       objectReference: {fileID: 0}
     - target: {fileID: 22472756, guid: 80c0b5e0b0479894daf6ba560a12504a, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -45.7
+      value: -45.69995
       objectReference: {fileID: 0}
     - target: {fileID: 22446216, guid: 80c0b5e0b0479894daf6ba560a12504a, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -45.3
+      value: -45.30005
       objectReference: {fileID: 0}
     - target: {fileID: 128980, guid: 80c0b5e0b0479894daf6ba560a12504a, type: 2}
       propertyPath: m_IsActive
@@ -4476,8 +4484,8 @@ MonoBehaviour:
   prefMagnitDie: {fileID: 0}
   prefJpuckDie: {fileID: 0}
   raycast: {fileID: 146659117}
-  dieRaycastUp: {fileID: 1824334476}
-  dieRaycastDown: {fileID: 1824334476}
+  dieRaycastUp: {fileID: 1177959945}
+  dieRaycastDown: {fileID: 1857718912}
   coinSound: {fileID: 8300000, guid: 556023c0ca629d14e96478c257653e27, type: 3}
   boteSound: {fileID: 0}
   magnetSound: {fileID: 0}
@@ -4950,19 +4958,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1616568863640522, guid: 733b1b28e9aba41ca8288b8276c57aae, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1135447365185540, guid: 733b1b28e9aba41ca8288b8276c57aae, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1142408898507758, guid: 733b1b28e9aba41ca8288b8276c57aae, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1979196580521750, guid: 733b1b28e9aba41ca8288b8276c57aae, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1186189001570430, guid: 733b1b28e9aba41ca8288b8276c57aae, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

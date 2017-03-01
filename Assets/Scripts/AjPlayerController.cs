@@ -185,77 +185,77 @@ public class AjPlayerController : MonoBehaviour
 	{
 
 
-		if (isChooseLetterActive) {
-
-
-			if (Input.GetMouseButtonDown(0)){ // if left button pressed...
-				Ray ray_mouse = cameraGameObject.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit_mouse;
-				if (Physics.Raycast(ray_mouse, out hit_mouse)){
-
-					if (hit_mouse.collider.tag.Contains ("coin")) {
-						if (correctAnswerPosition != -1 && hit_mouse.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
-							aSource.enabled = true;
-							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
-							aSource.volume = 1F;
-							aSource.Play ();
-
-							LetterCountController.countValue++;
-
-							this.GetComponent<Rigidbody>().isKinematic=false;
-
-							characterAnimator.SetTrigger ("return_to_running");
-
-							PauseMenu.PausedOff ();
-						} else {
-							hit_mouse.collider.gameObject.SetActive (false);
-							aSource.enabled = true;
-							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
-							aSource.volume = 1F;
-							aSource.Play ();
-						}
-					}
-
-				}
-			}
-
-
-			if (Input.touchCount > 0) {
-
-				Touch touch1 = Input.touches [0];
-				Ray rayx = cameraGameObject.ScreenPointToRay (touch1.position);
-				RaycastHit hitx;
-				if (Physics.Raycast (rayx, out hitx)) {
-
-					if (hitx.collider.tag.Contains ("coin")) {
-						if (correctAnswerPosition != -1 && hitx.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
-							aSource.enabled = true;
-							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
-							aSource.volume = 1F;
-							aSource.Play ();
-
-							LetterCountController.countValue++;
-
-							this.GetComponent<Rigidbody>().isKinematic=false;
-
-							characterAnimator.SetTrigger ("return_to_running");
-
-							PauseMenu.PausedOff ();
-						} else {
-							hitx.collider.gameObject.SetActive (false);
-							aSource.enabled = true;
-							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
-							aSource.volume = 1F;
-							aSource.Play ();
-						}
-					}
-
-				}
-			}
-
-
-
-		} 
+//		if (isChooseLetterActive) {
+//
+//
+//			if (Input.GetMouseButtonDown(0)){ // if left button pressed...
+//				Ray ray_mouse = cameraGameObject.ScreenPointToRay(Input.mousePosition);
+//				RaycastHit hit_mouse;
+//				if (Physics.Raycast(ray_mouse, out hit_mouse)){
+//
+//					if (hit_mouse.collider.tag.Contains ("coin")) {
+//						if (correctAnswerPosition != -1 && hit_mouse.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
+//							aSource.enabled = true;
+//							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
+//							aSource.volume = 1F;
+//							aSource.Play ();
+//
+//							LetterCountController.countValue++;
+//
+//							this.GetComponent<Rigidbody>().isKinematic=false;
+//
+//							characterAnimator.SetTrigger ("return_to_running");
+//
+//							PauseMenu.PausedOff ();
+//						} else {
+//							hit_mouse.collider.gameObject.SetActive (false);
+//							aSource.enabled = true;
+//							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
+//							aSource.volume = 1F;
+//							aSource.Play ();
+//						}
+//					}
+//
+//				}
+//			}
+//
+//
+//			if (Input.touchCount > 0) {
+//
+//				Touch touch1 = Input.touches [0];
+//				Ray rayx = cameraGameObject.ScreenPointToRay (touch1.position);
+//				RaycastHit hitx;
+//				if (Physics.Raycast (rayx, out hitx)) {
+//
+//					if (hitx.collider.tag.Contains ("coin")) {
+//						if (correctAnswerPosition != -1 && hitx.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
+//							aSource.enabled = true;
+//							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
+//							aSource.volume = 1F;
+//							aSource.Play ();
+//
+//							LetterCountController.countValue++;
+//
+//							this.GetComponent<Rigidbody>().isKinematic=false;
+//
+//							characterAnimator.SetTrigger ("return_to_running");
+//
+//							PauseMenu.PausedOff ();
+//						} else {
+//							hitx.collider.gameObject.SetActive (false);
+//							aSource.enabled = true;
+//							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
+//							aSource.volume = 1F;
+//							aSource.Play ();
+//						}
+//					}
+//
+//				}
+//			}
+//
+//
+//
+//		} 
 
 
 		if (pauseMenuContent.activeSelf.Equals (false)) {
@@ -417,7 +417,7 @@ public class AjPlayerController : MonoBehaviour
 						level++;
 						PlayerPrefs.SetInt ("level", level);
 						PauseMenu.Paused ();
-						isChooseLetterActive = true;
+						QuizScreen.isQuizTime = true;
 
 						characterAnimator.SetTrigger ("in_game_idle");
 
@@ -479,7 +479,7 @@ public class AjPlayerController : MonoBehaviour
 
 						localLvlCounter = 0;	
 					} else {
-						isChooseLetterActive = false;
+						QuizScreen.isQuizTime = false;
 						am.clip = coinSound;
 						am.volume = 0.1F;
 						am.Play ();

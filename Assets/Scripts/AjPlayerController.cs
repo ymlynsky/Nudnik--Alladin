@@ -130,7 +130,7 @@ public class AjPlayerController : MonoBehaviour
 
 	public Renderer[] coinChoiceArray;
 
-	int levelLimit = 20;
+	int levelLimit = 5;
 
 	public Animator characterAnimator;
 

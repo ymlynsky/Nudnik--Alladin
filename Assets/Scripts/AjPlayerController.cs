@@ -185,77 +185,77 @@ public class AjPlayerController : MonoBehaviour
 	{
 
 
-//		if (isChooseLetterActive) {
-//
-//
-//			if (Input.GetMouseButtonDown(0)){ // if left button pressed...
-//				Ray ray_mouse = cameraGameObject.ScreenPointToRay(Input.mousePosition);
-//				RaycastHit hit_mouse;
-//				if (Physics.Raycast(ray_mouse, out hit_mouse)){
-//
-//					if (hit_mouse.collider.tag.Contains ("coin")) {
-//						if (correctAnswerPosition != -1 && hit_mouse.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
-//							aSource.enabled = true;
-//							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
-//							aSource.volume = 1F;
-//							aSource.Play ();
-//
-//							LetterCountController.countValue++;
-//
-//							this.GetComponent<Rigidbody>().isKinematic=false;
-//
-//							characterAnimator.SetTrigger ("return_to_running");
-//
-//							PauseMenu.PausedOff ();
-//						} else {
-//							hit_mouse.collider.gameObject.SetActive (false);
-//							aSource.enabled = true;
-//							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
-//							aSource.volume = 1F;
-//							aSource.Play ();
-//						}
-//					}
-//
-//				}
-//			}
-//
-//
-//			if (Input.touchCount > 0) {
-//
-//				Touch touch1 = Input.touches [0];
-//				Ray rayx = cameraGameObject.ScreenPointToRay (touch1.position);
-//				RaycastHit hitx;
-//				if (Physics.Raycast (rayx, out hitx)) {
-//
-//					if (hitx.collider.tag.Contains ("coin")) {
-//						if (correctAnswerPosition != -1 && hitx.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
-//							aSource.enabled = true;
-//							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
-//							aSource.volume = 1F;
-//							aSource.Play ();
-//
-//							LetterCountController.countValue++;
-//
-//							this.GetComponent<Rigidbody>().isKinematic=false;
-//
-//							characterAnimator.SetTrigger ("return_to_running");
-//
-//							PauseMenu.PausedOff ();
-//						} else {
-//							hitx.collider.gameObject.SetActive (false);
-//							aSource.enabled = true;
-//							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
-//							aSource.volume = 1F;
-//							aSource.Play ();
-//						}
-//					}
-//
-//				}
-//			}
-//
-//
-//
-//		} 
+		if (isChooseLetterActive) {
+
+
+			if (Input.GetMouseButtonDown(0)){ // if left button pressed...
+				Ray ray_mouse = cameraGameObject.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit_mouse;
+				if (Physics.Raycast(ray_mouse, out hit_mouse)){
+
+					if (hit_mouse.collider.tag.Contains ("coin")) {
+						if (correctAnswerPosition != -1 && hit_mouse.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
+							aSource.enabled = true;
+							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
+							aSource.volume = 1F;
+							aSource.Play ();
+
+							LetterCountController.countValue++;
+
+							this.GetComponent<Rigidbody>().isKinematic=false;
+
+							characterAnimator.SetTrigger ("return_to_running");
+
+							PauseMenu.PausedOff ();
+						} else {
+							hit_mouse.collider.gameObject.SetActive (false);
+							aSource.enabled = true;
+							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
+							aSource.volume = 1F;
+							aSource.Play ();
+						}
+					}
+
+				}
+			}
+
+
+			if (Input.touchCount > 0) {
+
+				Touch touch1 = Input.touches [0];
+				Ray rayx = cameraGameObject.ScreenPointToRay (touch1.position);
+				RaycastHit hitx;
+				if (Physics.Raycast (rayx, out hitx)) {
+
+					if (hitx.collider.tag.Contains ("coin")) {
+						if (correctAnswerPosition != -1 && hitx.collider == coinChoiceArray [correctAnswerPosition].GetComponent<Collider> ()) {
+							aSource.enabled = true;
+							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
+							aSource.volume = 1F;
+							aSource.Play ();
+
+							LetterCountController.countValue++;
+
+							this.GetComponent<Rigidbody>().isKinematic=false;
+
+							characterAnimator.SetTrigger ("return_to_running");
+
+							PauseMenu.PausedOff ();
+						} else {
+							hitx.collider.gameObject.SetActive (false);
+							aSource.enabled = true;
+							aSource.clip = chooseTheLetterArray [LetterCountController.countValue];
+							aSource.volume = 1F;
+							aSource.Play ();
+						}
+					}
+
+				}
+			}
+
+
+
+		} 
 
 
 		if (pauseMenuContent.activeSelf.Equals (false)) {
@@ -417,7 +417,8 @@ public class AjPlayerController : MonoBehaviour
 						level++;
 						PlayerPrefs.SetInt ("level", level);
 						PauseMenu.Paused ();
-						QuizScreen.isQuizTime = true;
+						isChooseLetterActive = true;
+				
 
 						characterAnimator.SetTrigger ("in_game_idle");
 
@@ -479,7 +480,8 @@ public class AjPlayerController : MonoBehaviour
 
 						localLvlCounter = 0;	
 					} else {
-						QuizScreen.isQuizTime = false;
+						isChooseLetterActive = false;
+
 						am.clip = coinSound;
 						am.volume = 0.1F;
 						am.Play ();
@@ -645,7 +647,6 @@ public class AjPlayerController : MonoBehaviour
 	{
 
 		characterAnimator.SetTrigger ("leftStrafeAction");
-
 		swiped = true;
 
 		if (timer == 0) {
@@ -665,6 +666,18 @@ public class AjPlayerController : MonoBehaviour
 				}
 			}
 		}
+		RaycastHit toDie;
+		Ray rayLeft=new Ray();
+
+		rayLeft.origin = dieRaycastDown.transform.position;
+		rayLeft.direction = Vector3.left;
+		if (Physics.Raycast (rayLeft, out toDie, 0.15F)) {
+
+			if (toDie.collider.tag == "blocks" || toDie.collider.tag == "otherblock"|| toDie.collider.tag == "ground") {
+				sw += DistSwipe;
+			}
+
+		}
 
 
 
@@ -673,7 +686,6 @@ public class AjPlayerController : MonoBehaviour
 	void Right ()
 	{
 		characterAnimator.SetTrigger ("rightStrafeAction");
-
 		swiped = true;
 		if (timer == 0) {
 			if (sw == 0) {
@@ -691,6 +703,18 @@ public class AjPlayerController : MonoBehaviour
 					fs.Play ();
 				}
 			}
+		}
+		RaycastHit toDie;
+		Ray rayRight=new Ray();
+		rayRight.origin = dieRaycastDown.transform.position;
+		rayRight.direction = -Vector3.left;
+
+		if (Physics.Raycast (rayRight, out toDie, 0.15F)) {
+
+			if (toDie.collider.tag == "blocks" || toDie.collider.tag == "otherblock"|| toDie.collider.tag == "ground") {
+				sw -= DistSwipe;
+			}
+
 		}
 	}
 

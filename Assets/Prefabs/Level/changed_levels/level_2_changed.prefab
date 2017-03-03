@@ -959,7 +959,7 @@ GameObject:
   - component: {fileID: 65517879922211544}
   m_Layer: 0
   m_Name: 9
-  m_TagString: ground
+  m_TagString: blocks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1302,7 +1302,7 @@ GameObject:
   - component: {fileID: 65863942622707908}
   m_Layer: 0
   m_Name: collider
-  m_TagString: Untagged
+  m_TagString: blocks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -88,6 +88,8 @@ public class AjPlayerController : MonoBehaviour
 	public GameObject koverGo;
 	public GameObject coinKnowledgeContainer;
 	public Camera cameraGameObject;
+	private int quizAtempt=0;
+	private Vector3 lastPosition;
 	string[] letterNameArray = {
 		"1_alef_texture",
 		"2_bet_texture",
@@ -134,7 +136,7 @@ public class AjPlayerController : MonoBehaviour
 
 	public Animator characterAnimator;
 
-
+	private bool isFalling=false;
 	private int localLvlCounter = 0;
 	private int soundLocalLvlCounter = 0;
 
@@ -183,6 +185,21 @@ public class AjPlayerController : MonoBehaviour
 
 	void Update ()
 	{
+		if (isFalling) {
+			RaycastHit hitGround;
+			Ray rayDown=new Ray();
+			float speed = 20;
+			rayDown.origin = dieRaycastDown.transform.position;
+			rayDown.direction = Vector3.down;
+			Physics.Raycast (rayDown, out hitGround, 0.5F);
+			if (hitGround.collider != null && hitGround.collider.tag.Equals("ground")) {
+				
+				isFalling = false;
+				characterAnimator.SetTrigger ("return_to_running");
+				PauseMenu.PausedOff ();
+			}
+			this.transform.position = Vector3.MoveTowards (this.transform.position, lastPosition, speed*Time.deltaTime);
+		}
 
 
 		if (isChooseLetterActive) {
@@ -200,13 +217,15 @@ public class AjPlayerController : MonoBehaviour
 							aSource.volume = 1F;
 							aSource.Play ();
 
+							if (quizAtempt > 3) {
+								Application.LoadLevel (1);
+							}
 							LetterCountController.countValue++;
-
+							quizAtempt++;
+							isFalling = true;
+							isChooseLetterActive = false;
 							this.GetComponent<Rigidbody>().isKinematic=false;
 
-							characterAnimator.SetTrigger ("return_to_running");
-
-							PauseMenu.PausedOff ();
 						} else {
 							hit_mouse.collider.gameObject.SetActive (false);
 							aSource.enabled = true;
@@ -237,10 +256,9 @@ public class AjPlayerController : MonoBehaviour
 							LetterCountController.countValue++;
 
 							this.GetComponent<Rigidbody>().isKinematic=false;
+							isFalling = true;
+							isChooseLetterActive = false;
 
-							characterAnimator.SetTrigger ("return_to_running");
-
-							PauseMenu.PausedOff ();
 						} else {
 							hitx.collider.gameObject.SetActive (false);
 							aSource.enabled = true;
@@ -418,7 +436,7 @@ public class AjPlayerController : MonoBehaviour
 						PlayerPrefs.SetInt ("level", level);
 						PauseMenu.Paused ();
 						isChooseLetterActive = true;
-				
+						lastPosition = transform.position;
 
 						characterAnimator.SetTrigger ("in_game_idle");
 
@@ -775,6 +793,24 @@ public class AjPlayerController : MonoBehaviour
 		yield return new WaitForSeconds (1f);
 		crouch = false;
 		timer3 = 0;
+	}
+
+	private void returnRuning(){
+		RaycastHit hitGround;
+		Ray rayDown=new Ray();
+
+		rayDown.origin = dieRaycastDown.transform.position;
+		rayDown.direction = Vector3.down;
+		float speed = 1;
+		Physics.Raycast (rayDown, out hitGround, 0.15F);
+		while(hitGround.collider==null){
+			float step =speed * Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, Vector3.down, step);
+			Physics.Raycast (rayDown, out hitGround, 0.15F);
+		}
+
+
+
 	}
 
 }

@@ -35,6 +35,7 @@ public class Generation : MonoBehaviour
 
 	void Start ()
 	{
+		PlayerPrefs.DeleteAll();
 		isPause = false;
 		isStart = false;
 		Distance = 0;

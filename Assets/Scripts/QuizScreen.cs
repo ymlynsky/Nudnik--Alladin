@@ -29,7 +29,6 @@ public class QuizScreen : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isQuizTime = false;
-		PlayerPrefs.DeleteAll ();
 	}
 	
 	// Update is called once per frame

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -29,6 +30,8 @@ public class Generation : MonoBehaviour
 	LinkedList<Transform> roads = new LinkedList<Transform> ();
 	MeshFilter[] meshF;
 	private int idist;
+	public Image coinImage;
+	private string[] letterNameArray = {"1_alef_texture","2_bet_texture","3_vet_texture", "4_gimel_texture", "5_daled_texture", "6_hay_texture", "7_vav_texture", "8_zayin_texture","9_chet_texture", "10_tet_texture", "11_yud_texture", "12_kaf_texture", "13_chaf_texture", "14_final_kaf_texture", "15_lamed_texture", "16_mem_texture", "17_final_mem_texture", "18_nun_texture", "19_final_nun_texture", "20_samekh_texture", "21_ayin_texture","22_pay_texture", "23_fay_texture", "24_final_fay_texture", "25_tsadee_texture", "26_final_tsadee_texture", "27_kuf_texture","28_resh_texture", "29_shin_texture", "30_sin_texture", "31_taf_texture", "32_thaf_texture"};
 
 	void Start ()
 	{
@@ -50,7 +53,14 @@ public class Generation : MonoBehaviour
 				isStart = false;
 			}
 			roads.AddLast (road);
+
 		}
+
+		int level = PlayerPrefs.GetInt ("level");
+		string coin ="letter_sprites/"+letterNameArray [level]+"_sprite";
+		Sprite sprite=Resources.Load<Sprite> (coin);
+		coinImage.sprite = sprite;
+	
 	}
 
 	void Update ()
@@ -90,6 +100,10 @@ public class Generation : MonoBehaviour
 				road.Translate (0, 0, -(speed * speedBonus) * Time.deltaTime); 
 			}	
 		}
+
+
+
+
 	}
 
 	private void AddSpeed ()
@@ -119,5 +133,7 @@ public class Generation : MonoBehaviour
 		result.max = scaledMax;
 		return result;
 	}
+
+
 
 }

@@ -132,7 +132,7 @@ public class AjPlayerController : MonoBehaviour
 
 	public Renderer[] coinChoiceArray;
 
-	int levelLimit = 20;
+	int levelLimit = 5;
 
 	public Animator characterAnimator;
 
@@ -187,16 +187,19 @@ public class AjPlayerController : MonoBehaviour
 	{
 		if (isFalling) {
 			RaycastHit hitGround;
+			characterAnimator.SetBool ("falling_idle_anim_bool",true);
 			Ray rayDown=new Ray();
 			float speed = 20;
 			rayDown.origin = dieRaycastDown.transform.position;
 			rayDown.direction = Vector3.down;
 			Physics.Raycast (rayDown, out hitGround, 0.5F);
 			if (hitGround.collider != null && hitGround.collider) {
-				
+				PauseMenu.PausedOff ();
 				isFalling = false;
 				characterAnimator.SetTrigger ("return_to_running");
-				PauseMenu.PausedOff ();
+				characterAnimator.SetBool ("falling_idle_anim_bool",false);
+
+
 			}
 			this.transform.position = Vector3.MoveTowards (this.transform.position, lastPosition, speed*Time.deltaTime);
 		}
@@ -439,6 +442,7 @@ public class AjPlayerController : MonoBehaviour
 						lastPosition = transform.position;
 
 						characterAnimator.SetTrigger ("in_game_idle");
+						characterAnimator.SetBool ("falling_idle_anim_bool",false);
 
 						aSource.enabled = true;
 						aSource.clip = chooseTheLetterArray [LetterCountController.countValue];

@@ -132,7 +132,7 @@ public class AjPlayerController : MonoBehaviour
 
 	public Renderer[] coinChoiceArray;
 
-	int levelLimit = 100;
+	int levelLimit = 20;
 
 	public Animator characterAnimator;
 
@@ -192,7 +192,7 @@ public class AjPlayerController : MonoBehaviour
 			rayDown.origin = dieRaycastDown.transform.position;
 			rayDown.direction = Vector3.down;
 			Physics.Raycast (rayDown, out hitGround, 0.5F);
-			if (hitGround.collider != null && hitGround.collider.tag.Equals("ground")) {
+			if (hitGround.collider != null && hitGround.collider) {
 				
 				isFalling = false;
 				characterAnimator.SetTrigger ("return_to_running");

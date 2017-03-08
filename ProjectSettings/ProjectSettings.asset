@@ -197,7 +197,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Users/manolescusebastian/Desktop/nudnik_runner_key.keystore
+  AndroidKeystoreName: C:/Users/mihai/Downloads/nudnik_runner_key.keystore
   AndroidKeyaliasName: nudnikrunner
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

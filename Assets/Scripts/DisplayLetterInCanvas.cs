@@ -7,11 +7,8 @@ public class DisplayLetterInCanvas : MonoBehaviour {
 	public Image placeholder;
 	public Sprite[] images;
 
-	private int currentLevel;
-
 	// Use this for initialization
 	void Start () {
-		currentLevel = LetterCountController.countValue;
 	}
 	
 	// Update is called once per frame

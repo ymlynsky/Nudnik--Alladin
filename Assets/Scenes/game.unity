@@ -10815,7 +10815,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 413586, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: m_LocalPosition.x
@@ -10940,12 +10940,12 @@ Prefab:
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 4392901690780282, guid: 3e125ab1a937f4d15b44df006f559263,
+      objectReference: {fileID: 4680433711215008, guid: d641c68441438470ab8a0b1e512510d8,
         type: 2}
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 4680433711215008, guid: d641c68441438470ab8a0b1e512510d8,
+      objectReference: {fileID: 4392901690780282, guid: 3e125ab1a937f4d15b44df006f559263,
         type: 2}
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[3]
@@ -10963,7 +10963,7 @@ Prefab:
     - target: {fileID: 11460078, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: blocksPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 4392901690780282, guid: 3e125ab1a937f4d15b44df006f559263,
+      objectReference: {fileID: 4419596514265202, guid: 733b1b28e9aba41ca8288b8276c57aae,
         type: 2}
     - target: {fileID: 8299772, guid: 6c19d4e93ec961a4780978bbc278a8e0, type: 2}
       propertyPath: m_Volume

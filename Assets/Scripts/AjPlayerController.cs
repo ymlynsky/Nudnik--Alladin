@@ -132,7 +132,7 @@ public class AjPlayerController : MonoBehaviour
 
 	public Renderer[] coinChoiceArray;
 
-	int levelLimit = 5;
+	int levelLimit = 30;
 
 	public Animator characterAnimator;
 
@@ -176,7 +176,7 @@ public class AjPlayerController : MonoBehaviour
 		//fs = GameObject.FindGameObjectWithTag ("footsteps").GetComponent<AudioSource> ();
 		bg = GameObject.FindGameObjectWithTag ("gameManager").GetComponent<AudioSource> ();
 		guarde = GameObject.FindGameObjectWithTag ("Guard");
-
+		LetterCountController.countValue = PlayerPrefs.GetInt ("level");
 		characterAnimator = GetComponent<Animator> ();
 
 	}
@@ -185,6 +185,13 @@ public class AjPlayerController : MonoBehaviour
 
 	void Update ()
 	{
+		if (quizAtempt > 1) {
+			int level=PlayerPrefs.GetInt ("level");
+			level++;
+			PlayerPrefs.SetInt ("level", level);
+			Application.LoadLevel (1);
+		}
+
 		if (isFalling) {
 			RaycastHit hitGround;
 			characterAnimator.SetBool ("falling_idle_anim_bool",true);
@@ -219,11 +226,6 @@ public class AjPlayerController : MonoBehaviour
 							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
 							aSource.volume = 1F;
 							aSource.Play ();
-
-							if (quizAtempt > 3) {
-								Application.LoadLevel (1);
-							}
-							LetterCountController.countValue++;
 							quizAtempt++;
 							isFalling = true;
 							isChooseLetterActive = false;
@@ -255,8 +257,6 @@ public class AjPlayerController : MonoBehaviour
 							aSource.clip = chooseTheLetterArray [chooseTheLetterArray.Length - 1];
 							aSource.volume = 1F;
 							aSource.Play ();
-
-							LetterCountController.countValue++;
 
 							this.GetComponent<Rigidbody>().isKinematic=false;
 							isFalling = true;
@@ -434,9 +434,6 @@ public class AjPlayerController : MonoBehaviour
 					}		
 					if (localLvlCounter == levelLimit || localLvlCounter > levelLimit) {
 
-						int level=PlayerPrefs.GetInt ("level");
-						level++;
-						PlayerPrefs.SetInt ("level", level);
 						PauseMenu.Paused ();
 						isChooseLetterActive = true;
 						lastPosition = transform.position;

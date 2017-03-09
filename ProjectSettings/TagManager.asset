@@ -32,6 +32,41 @@ TagManager:
   - lampa
   - kalyan
   - banan
+  - 1
+  - 2
+  - 3
+  - map_letter_tag
+  - 15
+  - 22
+  - 26
+  - 10
+  - 13
+  - 27
+  - 8
+  - 19
+  - 0
+  - 4
+  - 25
+  - 14
+  - 12
+  - 18
+  - 29
+  - 17
+  - 11
+  - 5
+  - 30
+  - 24
+  - 9
+  - 23
+  - 21
+  - 16
+  - 31
+  - 6
+  - 20
+  - 28
+  - 7
+  - player_right_collider
+  - player_left_collider
   layers:
   - Default
   - TransparentFX

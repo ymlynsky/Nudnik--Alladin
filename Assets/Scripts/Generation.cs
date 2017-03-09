@@ -18,7 +18,7 @@ public class Generation : MonoBehaviour
 	[Tooltip ("Максимальная скорость бега")]
 	public float speedMax = 14.0f;
 	[Header ("Конфигурации генерации уровня:")]
-	[Range (1, 5)]
+	[Range (1, 4)]
 	[Tooltip ("Количество блоков на старте и в уровне")]
 	public int BlockCounth = 3;
 	public static float speed = 10.0f;
@@ -36,22 +36,23 @@ public class Generation : MonoBehaviour
 	void Start ()
 	{
 		isPause = false;
-		isStart = false;
-		Distance = 0;
+		isStart = true;
+		Distance = 1000;
 		speed = 10.0f;
 		for (int i = 0; i < BlockCounth; i++) {
-			Transform road = Instantiate (blocksPrefabs [i]) as Transform;
-			road.Translate (0, posY, i * road.localScale.z + 35f);
-
-			if (i > 0) {
-				//Debug.Log (road.transform.Find ("Road_1"));
-				road.Translate (0, posY, i * road.localScale.z + GetTotalMeshFilterBounds (road).size.z - 0.7f);
+			Transform road;
+			if(isStart){
+				road = Instantiate (blocksPrefabs [0]) as Transform;
+				road.Translate (0, posY, road.localScale.z - 25);
+			}else{
+				road = Instantiate (blocksPrefabs [Random.Range(1,4)]) as Transform;
+				//road.Translate (0, posY, i * road.localScale.z);
+				road.Translate (0, posY, road.localScale.z + GetTotalMeshFilterBounds (road).size.z - 25.1f);
 			}
 
+				
+			isStart = false;
 
-			if (i >= 1) {
-				isStart = false;
-			}
 			roads.AddLast (road);
 
 		}

@@ -10,8 +10,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Oneg Run
-  productName: Nudnik Run
+  companyName: AltTab
+  productName: Oneg Run
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
@@ -118,8 +118,8 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.nudnik.nudnikrunner
-  bundleVersion: 2.0.1
+  bundleIdentifier: com.nudnik.nudnikaladdin.ios
+  bundleVersion: 2.3.7
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -143,7 +143,7 @@ PlayerSettings:
   VertexChannelCompressionMask:
     serializedVersion: 2
     m_Bits: 238
-  iPhoneSdkVersion: 989
+  iPhoneSdkVersion: 988
   iOSTargetOSVersionString: 6.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0

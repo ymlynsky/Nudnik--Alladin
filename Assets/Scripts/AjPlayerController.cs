@@ -142,6 +142,8 @@ public class AjPlayerController : MonoBehaviour
 
 	public AudioClip[] audioLetterlist;
 
+	private Ray blockSwipeColliderRay;
+
 	IEnumerator Example ()
 	{
 		print (Time.time);
@@ -152,7 +154,7 @@ public class AjPlayerController : MonoBehaviour
 
 	void Start ()
 	{
-
+		blockSwipeColliderRay = new Ray();
 		l1.intensity = 0;
 		pauseButton = GameObject.FindGameObjectWithTag ("pauseMenu");
 		jumpUP = false;
@@ -191,6 +193,12 @@ public class AjPlayerController : MonoBehaviour
 			PlayerPrefs.SetInt ("level", level);
 			Application.LoadLevel (1);
 		}
+
+
+		//always keep the position of the raycast for player model
+	
+
+		blockSwipeColliderRay.origin = dieRaycastDown.transform.position;
 
 		if (isFalling) {
 			RaycastHit hitGround;
@@ -665,7 +673,7 @@ public class AjPlayerController : MonoBehaviour
 	void Left ()
 	{
 
-		characterAnimator.SetTrigger ("leftStrafeAction");
+		//characterAnimator.SetTrigger ("leftStrafeAction");
 		swiped = true;
 
 		if (timer == 0) {
@@ -685,14 +693,11 @@ public class AjPlayerController : MonoBehaviour
 				}
 			}
 		}
-		RaycastHit toDie;
-		Ray rayLeft=new Ray();
+		RaycastHit leftRaycastHit;
+		blockSwipeColliderRay.direction = Vector3.left;
+		if (Physics.Raycast (blockSwipeColliderRay, out leftRaycastHit, 0.20F)) {
 
-		rayLeft.origin = dieRaycastDown.transform.position;
-		rayLeft.direction = Vector3.left;
-		if (Physics.Raycast (rayLeft, out toDie, 0.15F)) {
-
-			if (toDie.collider.tag == "blocks" || toDie.collider.tag == "otherblock"|| toDie.collider.tag == "ground") {
+			if (leftRaycastHit.collider) {
 				sw += DistSwipe;
 			}
 
@@ -704,7 +709,7 @@ public class AjPlayerController : MonoBehaviour
 
 	void Right ()
 	{
-		characterAnimator.SetTrigger ("rightStrafeAction");
+		//characterAnimator.SetTrigger ("rightStrafeAction");
 		swiped = true;
 		if (timer == 0) {
 			if (sw == 0) {
@@ -724,16 +729,13 @@ public class AjPlayerController : MonoBehaviour
 			}
 		}
 		RaycastHit toDie;
-		Ray rayRight=new Ray();
-		rayRight.origin = dieRaycastDown.transform.position;
-		rayRight.direction = -Vector3.left;
+		blockSwipeColliderRay.direction = -Vector3.left;
 
-		if (Physics.Raycast (rayRight, out toDie, 0.15F)) {
+		if (Physics.Raycast (blockSwipeColliderRay, out toDie, 0.20F)) {
 
-			if (toDie.collider.tag == "blocks" || toDie.collider.tag == "otherblock"|| toDie.collider.tag == "ground") {
+			if (toDie.collider) {
 				sw -= DistSwipe;
 			}
-
 		}
 	}
 

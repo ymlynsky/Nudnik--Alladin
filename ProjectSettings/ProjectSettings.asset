@@ -119,13 +119,13 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.nudnik.nudnikaladdin.ios
-  bundleVersion: 2.3.7
+  bundleVersion: 2.4
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
   xboxOneDisableKinectGpuReservation: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 15
   AndroidPreferredInstallLocation: 0
   aotOptions: 
@@ -197,7 +197,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/mihai/Downloads/nudnik_runner_key.keystore
+  AndroidKeystoreName: /Users/manolescusebastian/Desktop/nudnik_runner_key.keystore
   AndroidKeyaliasName: nudnikrunner
   AndroidTVCompatibility: 0
   AndroidIsGame: 1

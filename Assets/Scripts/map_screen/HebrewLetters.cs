@@ -79,7 +79,7 @@ public class HebrewLetters : MonoBehaviour
 
 		pinPointAnimator.SetBool ("pinPointBool", true);
 
-		yield return new WaitForSeconds (1.0f);
+		yield return new WaitForSeconds (0.3f);
 
 		Application.LoadLevel (2);
 	}

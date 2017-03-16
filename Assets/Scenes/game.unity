@@ -59747,7 +59747,7 @@ MonoBehaviour:
   x2Sound: {fileID: 0}
   swipeSound: {fileID: 0}
   DistSwipe: 1.8
-  jumpVelocity: {x: 0, y: 6, z: 0}
+  jumpVelocity: {x: 0, y: 7, z: 0}
   fs: {fileID: 720985603}
   aSource: {fileID: 1679624019}
   magObj: {fileID: 0}

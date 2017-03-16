@@ -43,11 +43,11 @@ public class Generation : MonoBehaviour
 			Transform road;
 			if(isStart){
 				road = Instantiate (blocksPrefabs [0]) as Transform;
-				road.Translate (0, posY, road.localScale.z - 25);
+				road.Translate (0, posY, road.localScale.z - 25.2f);
 			}else{
 				road = Instantiate (blocksPrefabs [Random.Range(1,4)]) as Transform;
 				//road.Translate (0, posY, i * road.localScale.z);
-				road.Translate (0, posY, road.localScale.z + GetTotalMeshFilterBounds (road).size.z - 25.1f);
+				road.Translate (0, posY, road.localScale.z + GetTotalMeshFilterBounds (road).size.z - 25.5f);
 			}
 
 				

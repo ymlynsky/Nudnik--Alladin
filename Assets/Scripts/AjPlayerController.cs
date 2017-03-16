@@ -144,6 +144,8 @@ public class AjPlayerController : MonoBehaviour
 
 	private Ray blockSwipeColliderRay;
 
+	bool isJumpSwipedAgain = false;
+
 	IEnumerator Example ()
 	{
 		print (Time.time);
@@ -187,12 +189,15 @@ public class AjPlayerController : MonoBehaviour
 
 	void Update ()
 	{
+
+		/*
 		if (quizAtempt > 1) {
 			int level=PlayerPrefs.GetInt ("level");
 			level++;
 			PlayerPrefs.SetInt ("level", level);
 			Application.LoadLevel (1);
 		}
+		*/
 
 
 		//always keep the position of the raycast for player model
@@ -281,9 +286,6 @@ public class AjPlayerController : MonoBehaviour
 
 				}
 			}
-
-
-
 		} 
 
 
@@ -354,6 +356,11 @@ public class AjPlayerController : MonoBehaviour
 				dieRay = dieRaycastUp;
 			}
 			//
+
+			if(isJumpSwipedAgain && isGround){
+				isJumpSwipedAgain = false;
+				iJump ();
+			}
 
 			foreach (Touch th in Input.touches) {
 
@@ -599,6 +606,11 @@ public class AjPlayerController : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// END OF UPDATE METHOD
+	/// </summary>
+
+
 	void Kolyan ()
 	{
 		for (int l = 0; l < 10; l++) {
@@ -745,6 +757,29 @@ public class AjPlayerController : MonoBehaviour
 			jumpUP = true;
 			swiped2 = true;
 
+			//if (isGround == true) {
+				fs.volume = 0.9F;
+				fs.clip = swipeSound;
+				fs.Play ();
+				isGround = false;
+				isJump = true;
+
+				characterAnimator.SetTrigger ("jumpSelected");
+
+				this.GetComponent<Rigidbody> ().AddForce (jumpVelocity, ForceMode.VelocityChange);
+
+			//}	
+		}else{
+			isJumpSwipedAgain = true;
+		}
+	}
+
+	/*void iJump ()
+	{
+		if (timer2 == 0) {
+			jumpUP = true;
+			swiped2 = true;
+
 			if (isGround == true && jPuck == false && timer3 == 0) {
 				fs.volume = 0.9F;
 				fs.clip = swipeSound;
@@ -758,7 +793,8 @@ public class AjPlayerController : MonoBehaviour
 
 			}	
 		}
-	}
+	}*/
+
 
 	void iRoll ()
 	{
@@ -767,6 +803,8 @@ public class AjPlayerController : MonoBehaviour
 		StartCoroutine (crouchWait ());
 		cc.enabled = false;
 		sc.enabled = true;
+
+		isJumpSwipedAgain = false;
 		/*if (isGround == true && jPuck == false) {
 			fs.volume = 0.9F;
 			fs.clip = swipeSound;

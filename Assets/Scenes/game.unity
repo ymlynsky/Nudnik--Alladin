@@ -6290,7 +6290,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeholder: {fileID: 192594832}
-  images: []
+  images:
+  - {fileID: 21300000, guid: e58714e52f3e048959bc2392712c6cb5, type: 3}
+  - {fileID: 21300000, guid: 4eebf1e79196c4368a8f1bfe96ab5dbf, type: 3}
+  - {fileID: 21300000, guid: 804bd552f793041789ead6e884999081, type: 3}
+  - {fileID: 21300000, guid: f13106bc7c243438eaa46b9ab878d57c, type: 3}
+  - {fileID: 21300000, guid: c2ca8fa3cf0b44a26bc7a0e70c28d651, type: 3}
+  - {fileID: 21300000, guid: 9d460a2f1244646f8bc76da55cc9be9d, type: 3}
+  - {fileID: 21300000, guid: 32984ff2f244c41d19bccd6a18f53b0b, type: 3}
+  - {fileID: 21300000, guid: 44730f3c3c6aa488eb2362e7b092c833, type: 3}
+  - {fileID: 21300000, guid: 29e44aa58592a4d2d9376f87c52facad, type: 3}
+  - {fileID: 21300000, guid: ee9fea1d97c324ddb802f365141ffc62, type: 3}
+  - {fileID: 21300000, guid: 5411ab96d849240fdb05421c926f1f6d, type: 3}
+  - {fileID: 21300000, guid: cbf5ea884cdbc40f89323d22f35002df, type: 3}
+  - {fileID: 21300000, guid: a6caede4f9dd74b94a096f0ed0c26c6e, type: 3}
+  - {fileID: 21300000, guid: 0f289de7f1287482baf636df9b7e30d7, type: 3}
+  - {fileID: 21300000, guid: 0c3cac8a79daa4312aadc21230b53a05, type: 3}
+  - {fileID: 21300000, guid: 3d80ba83d57a04e98abeff44152a1942, type: 3}
+  - {fileID: 21300000, guid: 240ea3d3a438c48af8271aa27b264234, type: 3}
+  - {fileID: 21300000, guid: 265323614d3ba4e93bec4a5b4209c8d7, type: 3}
+  - {fileID: 21300000, guid: 64f2eb94fcc724d78a6fba59afcdfe31, type: 3}
+  - {fileID: 21300000, guid: ddae4bc57c2ed42abb9d7142c74d61e6, type: 3}
+  - {fileID: 21300000, guid: d5c86b3d8e9ed4ffc8b70e6e7b3c8cf7, type: 3}
+  - {fileID: 21300000, guid: 127097d0d78fd4c49b87a7c0f4d8a937, type: 3}
+  - {fileID: 21300000, guid: 02088065309da49c39247608571cd027, type: 3}
+  - {fileID: 21300000, guid: b93c9bd1010964d99bf33ab5bd8dfc5b, type: 3}
+  - {fileID: 21300000, guid: 9e49a7ad8020f4c3aa2ff86c0c53a2ea, type: 3}
+  - {fileID: 21300000, guid: ae9b96a88243e4538ad1076dbec0dd4d, type: 3}
+  - {fileID: 21300000, guid: 0400bfa52550845a796a0fa0bc8fc382, type: 3}
+  - {fileID: 21300000, guid: a9911d865f1544f26ae2773c9f4ec5e4, type: 3}
+  - {fileID: 21300000, guid: 778549d7052dc4832ae0376a3f35722d, type: 3}
+  - {fileID: 21300000, guid: c61633f8579f74f31b59f3058d058f51, type: 3}
+  - {fileID: 21300000, guid: f99127304f80b47788ce2f41fa4a4dcf, type: 3}
+  - {fileID: 21300000, guid: 6faece6dac8e5481baf1497ebd133a88, type: 3}
 --- !u!114 &192594832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6311,7 +6343,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e58714e52f3e048959bc2392712c6cb5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -59741,27 +59773,15 @@ MonoBehaviour:
   dieRaycastDown: {fileID: 1857718912}
   coinSound: {fileID: 8300000, guid: 556023c0ca629d14e96478c257653e27, type: 3}
   boteSound: {fileID: 0}
-  magnetSound: {fileID: 0}
-  jetSound: {fileID: 0}
   dieSound: {fileID: 0}
-  x2Sound: {fileID: 0}
   swipeSound: {fileID: 0}
   DistSwipe: 1.8
   jumpVelocity: {x: 0, y: 7, z: 0}
   fs: {fileID: 720985603}
   aSource: {fileID: 1679624019}
-  magObj: {fileID: 0}
-  magObj2: {fileID: 0}
-  kover: {fileID: 0}
-  botLeft: {fileID: 0}
-  botRight: {fileID: 0}
   saveButton: {fileID: 0}
   saveButtonBG: {fileID: 0}
   gameOv: {fileID: 1358164369}
-  KoverText1: {fileID: 0}
-  KoverText2: {fileID: 0}
-  KoverText3: {fileID: 0}
-  koverGo: {fileID: 0}
   coinKnowledgeContainer: {fileID: 1109309618}
   cameraGameObject: {fileID: 945536037}
   pauseMenuContent: {fileID: 299071682}

@@ -87,19 +87,21 @@ public class Generation : MonoBehaviour
 			if (Distance >= speedAddDistance) {
 				AddSpeed ();
 			}
-			Transform firstRoad = roads.First.Value;
-			Transform lastRoad = roads.Last.Value;
-			if (firstRoad.localPosition.z < -firstRoad.localScale.z / 2 - 46F) {
-				roads.Remove (firstRoad);
-				bcount++;
-				Destroy (firstRoad.gameObject);
+			if (roads.First != null && roads.First.Value != null) {
+				Transform firstRoad = roads.First.Value;
+				Transform lastRoad = roads.Last.Value;
+				if (firstRoad.localPosition.z < -firstRoad.localScale.z / 2 - 46F) {
+					roads.Remove (firstRoad);
+					bcount++;
+					Destroy (firstRoad.gameObject);
 
-				Transform newRoad = Instantiate (blocksPrefabs [UnityEngine.Random.Range (1, blocksPrefabs.Length)], new Vector3 (0, posY, lastRoad.localPosition.z + GetTotalMeshFilterBounds (lastRoad).size.z - 1f), Quaternion.identity) as Transform;
-				roads.AddLast (newRoad);
+					Transform newRoad = Instantiate (blocksPrefabs [UnityEngine.Random.Range (1, blocksPrefabs.Length)], new Vector3 (0, posY, lastRoad.localPosition.z + GetTotalMeshFilterBounds (lastRoad).size.z - 1f), Quaternion.identity) as Transform;
+					roads.AddLast (newRoad);
+				}
+				foreach (Transform road in roads) {
+					road.Translate (0, 0, -(speed * speedBonus) * Time.deltaTime); 
+				}
 			}
-			foreach (Transform road in roads) {
-				road.Translate (0, 0, -(speed * speedBonus) * Time.deltaTime); 
-			}	
 		}
 
 

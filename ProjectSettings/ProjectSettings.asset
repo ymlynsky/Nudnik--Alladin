@@ -7,7 +7,7 @@ PlayerSettings:
   productGUID: f4a7a563b8657104b9be257f7d019a96
   AndroidProfiler: 0
   defaultScreenOrientation: 0
-  targetDevice: 2
+  targetDevice: 0
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: AltTab
@@ -118,15 +118,15 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.nudnik.nudnikaladdin.ios
-  bundleVersion: 2.4
+  bundleIdentifier: co.oneg.run.android
+  bundleVersion: 1.0
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
   xboxOneDisableKinectGpuReservation: 0
   protectGraphicsMemory: 0
-  AndroidBundleVersionCode: 4
-  AndroidMinSdkVersion: 15
+  AndroidBundleVersionCode: 1
+  AndroidMinSdkVersion: 16
   AndroidPreferredInstallLocation: 0
   aotOptions: 
   apiCompatibilityLevel: 2
@@ -191,14 +191,14 @@ PlayerSettings:
   iOSBackgroundModes: 0
   iOSMetalForceHardShadows: 0
   appleDeveloperTeamID: 
-  iOSManualSigningProvisioningProfileID: 
+  iOSManualSigningProvisioningProfileID: b86e9752-0402-423b-8d53-722fb8a7006c
   tvOSManualSigningProvisioningProfileID: 
-  appleEnableAutomaticSigning: 0
+  appleEnableAutomaticSigning: 1
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Users/manolescusebastian/Desktop/nudnik_runner_key.keystore
-  AndroidKeyaliasName: nudnikrunner
+  AndroidKeystoreName: /Users/manolescusebastian/Desktop/oneg-run-key.keystore
+  AndroidKeyaliasName: onegrunalias
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 0

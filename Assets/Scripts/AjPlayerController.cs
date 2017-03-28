@@ -8,7 +8,6 @@ public class AjPlayerController : MonoBehaviour
 
 	public Light l1;
 	float lt;
-	bool narik = false;
 	[HideInInspector]
 	public bool isRoll, isSlide;
 	public static int coinCount = 0;
@@ -16,7 +15,6 @@ public class AjPlayerController : MonoBehaviour
 	[Space (10)]
 	public bool keyboard;
 	private bool coldr = false;
-	private int BookCount, MedalCount, DudkaCount, ZmeyCount, VazaCount;
 	[Space (10)]
 	[Header ("Префабы эффектов разрушения:")]
 	public Transform playerDie;
@@ -33,23 +31,14 @@ public class AjPlayerController : MonoBehaviour
 	[Header ("Аудиоклипы различных эффектов:")]
 	public AudioClip coinSound;
 	public AudioClip boteSound;
-	public AudioClip magnetSound;
-	public AudioClip jetSound;
 	public AudioClip dieSound;
-	public AudioClip x2Sound;
 	public AudioClip swipeSound;
 	public static bool isGround = false;
-	public static bool guardGo = false;
 	private float sw, timer, timer2, timer3, timer6, timerl, timer8, timerGO, tc;
 	public static float timer4, timer5, timer7;
 	private bool swiped, rolled, timerG;
 	public static bool swiped2;
 	public static bool isJump = false;
-	[Header ("Время действия бонусов:")]
-	public static float BotsTime;
-	public static float x2Time;
-	public static float MagnetTime;
-	public static float jPuckTime;
 	[Header ("Настройки игрока:")]
 	public float DistSwipe;
 	private AnimationManager animationManager;
@@ -64,14 +53,7 @@ public class AjPlayerController : MonoBehaviour
 	public AudioSource fs;
 	public AudioSource aSource;
 	public static bool die;
-	private GameObject guarde;
 	GameObject pauseButton;
-	public static bool jPuck, botOn, x2On, magnetOn;
-	[Header ("ВКЛ/ВЫКЛ - одежки и бонусы:")]
-	public GameObject magObj;
-	public GameObject magObj2;
-	public GameObject kover;
-	public GameObject botLeft, botRight;
 	private bool noNeed = false;
 	public static int roundLife = 0;
 	public GameObject saveButton;
@@ -82,10 +64,6 @@ public class AjPlayerController : MonoBehaviour
 	private bool hasSwiped = false;
 	public static bool lifesave = false;
 	public static bool jumpUP;
-	public Texture KoverText1;
-	public Texture KoverText2;
-	public Texture KoverText3;
-	public GameObject koverGo;
 	public GameObject coinKnowledgeContainer;
 	public Camera cameraGameObject;
 	private int quizAtempt=0;
@@ -132,13 +110,12 @@ public class AjPlayerController : MonoBehaviour
 
 	public Renderer[] coinChoiceArray;
 
-	int levelLimit = 30;
+	int levelLimit = 5;
 
 	public Animator characterAnimator;
 
 	private bool isFalling=false;
 	private int localLvlCounter = 0;
-	private int soundLocalLvlCounter = 0;
 
 	public AudioClip[] audioLetterlist;
 
@@ -146,16 +123,14 @@ public class AjPlayerController : MonoBehaviour
 
 	bool isJumpSwipedAgain = false;
 
-	IEnumerator Example ()
-	{
+	IEnumerator Example (){
 		print (Time.time);
 		yield return new WaitForSeconds (5);
 		print (Time.time);
 		PauseMenu.PausedOff ();
 	}
 
-	void Start ()
-	{
+	void Start (){
 		blockSwipeColliderRay = new Ray();
 		l1.intensity = 0;
 		pauseButton = GameObject.FindGameObjectWithTag ("pauseMenu");
@@ -163,14 +138,9 @@ public class AjPlayerController : MonoBehaviour
 		Physics.gravity = new Vector3 (0, -15f, 0);
 		coinsAll = PlayerPrefs.GetInt ("acoin");
 		roundLife = 0;
-		magnetOn = false;
-		jPuck = false;
-		botOn = false;
-		x2On = false;
 		die = false;
 		coinCount = 0;
 		gameOv.SetActive (false);
-		guardGo = true;
 		lifesave = false;
 		animationManager = this.GetComponent<AnimationManager> ();
 		cc = GetComponent<CapsuleCollider> ();
@@ -179,29 +149,14 @@ public class AjPlayerController : MonoBehaviour
 		am = GameObject.FindGameObjectWithTag ("coinrot").GetComponent<AudioSource> ();
 		//fs = GameObject.FindGameObjectWithTag ("footsteps").GetComponent<AudioSource> ();
 		bg = GameObject.FindGameObjectWithTag ("gameManager").GetComponent<AudioSource> ();
-		guarde = GameObject.FindGameObjectWithTag ("Guard");
-		LetterCountController.countValue = PlayerPrefs.GetInt ("level");
+		LetterCountController.countValue = PlayerPrefs.GetInt ("selectedLevel");
 		characterAnimator = GetComponent<Animator> ();
-
 	}
 
 
 
-	void Update ()
-	{
-
-		/*
-		if (quizAtempt > 1) {
-			int level=PlayerPrefs.GetInt ("level");
-			level++;
-			PlayerPrefs.SetInt ("level", level);
-			Application.LoadLevel (1);
-		}
-		*/
-
-
+	void Update (){
 		//always keep the position of the raycast for player model
-	
 
 		blockSwipeColliderRay.origin = dieRaycastDown.transform.position;
 
@@ -222,12 +177,22 @@ public class AjPlayerController : MonoBehaviour
 
 			}
 			this.transform.position = Vector3.MoveTowards (this.transform.position, lastPosition, speed*Time.deltaTime);
+
+			if (quizAtempt > 1) {
+				int currentLevelValue = PlayerPrefs.GetInt ("selectedLevel");
+				int maxLevel = PlayerPrefs.GetInt ("level");
+				if(currentLevelValue >= maxLevel){
+					LetterCountController.countValue++;
+					PlayerPrefs.SetInt ("level", LetterCountController.countValue);
+				}
+				Application.LoadLevel (1);
+			}
 		}
 
 
 		if (isChooseLetterActive) {
 
-
+			//Mouse touch for testing only
 			if (Input.GetMouseButtonDown(0)){ // if left button pressed...
 				Ray ray_mouse = cameraGameObject.ScreenPointToRay(Input.mousePosition);
 				RaycastHit hit_mouse;
@@ -257,6 +222,7 @@ public class AjPlayerController : MonoBehaviour
 			}
 
 
+			//Production version (MOBILE)
 			if (Input.touchCount > 0) {
 
 				Touch touch1 = Input.touches [0];
@@ -431,22 +397,14 @@ public class AjPlayerController : MonoBehaviour
 				}
 			}
 			Debug.DrawRay (ray.origin, ray.direction,Color.red,0.1f);
-			if (narik) {
-				Kolyan ();
-			}
+	
 			RaycastHit t;
 			if (Physics.Raycast (raycast.transform.position, Vector3.forward, out t, 1F)) {
 				if (t.collider.tag == "coin") {
 					Instantiate (prefCoinDie, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 0.5F), transform.rotation);
-					if (x2On) {
-						coinCount = coinCount + 2;
-						soundLocalLvlCounter = soundLocalLvlCounter + 2;
-						localLvlCounter = localLvlCounter + 2;
-					} else {
 						coinCount++;
 						localLvlCounter++;
-						soundLocalLvlCounter++;
-					}		
+						
 					if (localLvlCounter == levelLimit || localLvlCounter > levelLimit) {
 
 						PauseMenu.Paused ();
@@ -467,7 +425,6 @@ public class AjPlayerController : MonoBehaviour
 						transform.position += temp;
 
 
-
 						Vector3 tempx = new Vector3 (transform.position.x, temp.y + 4f, 17.0f);
 
 						coinKnowledgeContainer.transform.position = tempx;
@@ -485,7 +442,6 @@ public class AjPlayerController : MonoBehaviour
 							letterInt [i] = letterInt [randomIndex];
 							letterInt [randomIndex] = temp1;
 						}
-
 
 
 						List<int> addedLetterPos = new List<int> ();
@@ -520,25 +476,18 @@ public class AjPlayerController : MonoBehaviour
 						am.volume = 0.1F;
 						am.Play ();
 
-						if (soundLocalLvlCounter == 10 || soundLocalLvlCounter > 10) {
-							soundLocalLvlCounter = 0;
+						if (localLvlCounter == 10 || localLvlCounter > 10) {
+							localLvlCounter = 0;
 							AudioClip letterAudioClip = audioLetterlist [LetterCountController.countValue];
 							aSource.clip = letterAudioClip;
 							aSource.volume = 1F;
 							aSource.Play ();
 
 						}
-
-
-
 					}
 
 					Destroy (t.collider.gameObject.gameObject);
 				}
-			}
-			if (jPuck) {
-				coinCount++;
-				//localLvlCounter++;
 			}
 
 			RaycastHit hit;
@@ -564,16 +513,14 @@ public class AjPlayerController : MonoBehaviour
 						animationManager.animationState = animationManager.Needles;
 					}
 					// =============================DEACTIVATE GUARD==============================
-					guarde.SetActive (false);
 					if (timerG == true && die == false) {
 						die = true;
 						DieTru ();
 						timerG = false;
-					} else {
-						guardGo = true;
 					}
 				}
 			}
+
 			if (isGround == false && isJump == true) {
 				//animationManager.animationState = animationManager.JumpLoop;
 				isJump = false;
@@ -611,21 +558,7 @@ public class AjPlayerController : MonoBehaviour
 	/// </summary>
 
 
-	void Kolyan ()
-	{
-		for (int l = 0; l < 10; l++) {
-			l1.intensity = Random.Range (0, 10);
-		}
-		lt += Time.deltaTime;
-		if (lt > 8f) {
-			lt = 0;		
-			l1.intensity = 0;
-			narik = false;
-		}
-	}
-
-	void NoSaved ()
-	{
+	void NoSaved (){
 		lifesave = false;
 		//GetComponent<Animation>().enabled = true;
 		saveButton.SetActive (false);
@@ -635,8 +568,7 @@ public class AjPlayerController : MonoBehaviour
 		DieTru ();
 	}
 
-	public void SavedLife ()
-	{
+	public void SavedLife (){
 		lifesave = false;
 		roundLife--;
 		saveButton.SetActive (false);
@@ -645,45 +577,23 @@ public class AjPlayerController : MonoBehaviour
 	}
 
 
-	void DieTru ()
-	{
+	void DieTru (){
 		if (die == true) {
 			PlayerPrefs.SetInt ("acoin", coinsAll + coinCount);
 			PlayerPrefs.Save ();
-			if (jPuck == false) {
-				//guarde.SetActive (true);
-			}
-			//bg.enabled = false;
-			//am.clip = dieSound;
-			//am.Play ();
 
 			characterAnimator.SetTrigger ("player_head_hurts");
 			pauseButton.SetActive (false);
 		}
 	}
 
-	void OnTriggerExit (Collider par)
-	{
+	void OnTriggerExit (Collider par){
 		if (par.GetComponent<Collider> ().tag == "blocks" && isJump == false && swiped == false && noNeed == false) {
 			animationManager.animationState = animationManager.JumpBetman;
 		}
 	}
 
-	void BoteOn ()
-	{
-		botLeft.SetActive (true);
-		botRight.SetActive (true);
-		if (botOn == true) {
-			timer4 = timer4 - BotsTime;
-		} else {
-			jumpVelocity.y = jumpVelocity.y + 1F;
-			botOn = true;
-		}
-	}
-
-
-	void Left ()
-	{
+	void Left (){
 
 		//characterAnimator.SetTrigger ("leftStrafeAction");
 		swiped = true;
@@ -719,8 +629,7 @@ public class AjPlayerController : MonoBehaviour
 
 	}
 
-	void Right ()
-	{
+	void Right (){
 		//characterAnimator.SetTrigger ("rightStrafeAction");
 		swiped = true;
 		if (timer == 0) {
@@ -751,13 +660,12 @@ public class AjPlayerController : MonoBehaviour
 		}
 	}
 
-	void iJump ()
-	{
+	void iJump (){
 		if (timer2 == 0) {
 			jumpUP = true;
 			swiped2 = true;
 
-			//if (isGround == true) {
+			if (isGround == true) {
 				fs.volume = 0.9F;
 				fs.clip = swipeSound;
 				fs.Play ();
@@ -767,60 +675,25 @@ public class AjPlayerController : MonoBehaviour
 				characterAnimator.SetTrigger ("jumpSelected");
 
 				this.GetComponent<Rigidbody> ().AddForce (jumpVelocity, ForceMode.VelocityChange);
-
-			//}	
+			}	
 		}else{
 			isJumpSwipedAgain = true;
 		}
 	}
 
-	/*void iJump ()
-	{
-		if (timer2 == 0) {
-			jumpUP = true;
-			swiped2 = true;
 
-			if (isGround == true && jPuck == false && timer3 == 0) {
-				fs.volume = 0.9F;
-				fs.clip = swipeSound;
-				fs.Play ();
-				isGround = false;
-				isJump = true;
-
-				characterAnimator.SetTrigger ("jumpSelected");
-
-				this.GetComponent<Rigidbody> ().AddForce (jumpVelocity, ForceMode.VelocityChange);
-
-			}	
-		}
-	}*/
-
-
-	void iRoll ()
-	{
-
+	void iRoll (){
 		characterAnimator.SetTrigger ("slideSelected");
 		StartCoroutine (crouchWait ());
 		cc.enabled = false;
 		sc.enabled = true;
 
 		isJumpSwipedAgain = false;
-		/*if (isGround == true && jPuck == false) {
-			fs.volume = 0.9F;
-			fs.clip = swipeSound;
-			fs.Play ();
 
-
-
-			//int rN = UnityEngine.Random.Range (0, 3);
-			this.GetComponent<Rigidbody> ().AddForce (-Vector3.up, ForceMode.VelocityChange);
-
-		}
-		*/
+		//this.GetComponent<Rigidbody> ().AddForce (-Vector3.up, ForceMode.VelocityChange);
 	}
 
-	IEnumerator playChooseLetterSound ()
-	{
+	IEnumerator playChooseLetterSound (){
 		am.enabled = true;
 		AudioListener.pause = false;
 		am.clip = chooseTheLetterArray [LetterCountController.countValue];
@@ -849,9 +722,5 @@ public class AjPlayerController : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position, Vector3.down, step);
 			Physics.Raycast (rayDown, out hitGround, 0.15F);
 		}
-
-
-
 	}
-
 }

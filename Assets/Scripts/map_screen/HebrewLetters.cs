@@ -34,6 +34,10 @@ public class HebrewLetters : MonoBehaviour
 
 		int currentLevel = PlayerPrefs.GetInt ("level",0);
 
+		if(currentLevel > 32){
+			PlayerPrefs.DeleteAll ();
+		}
+
 		//if (textObjectsWithTag.Length == hebrewLettersArray.Length) {
 			for (int i = 0; i < hebrewCharLettersArray.Length; i++) {
 				gameObjectList[i].GetComponent<Text> ().text = ""+hebrewCharLettersArray[i];
@@ -57,7 +61,7 @@ public class HebrewLetters : MonoBehaviour
 			GameObject bullet = GameObject.FindWithTag (PlayerPrefs.GetInt("level",0).ToString());
 			pinPointBullet = Instantiate (pinPointPrefab,bullet.transform.parent.transform) as GameObject;
 			pinPointAnimator = pinPointBullet.GetComponent<Animator> ();
-			Vector3 bulletPosition = new Vector3 (bullet.transform.position.x, bullet.transform.position.y + (((RectTransform)bullet.transform).rect.height)+20f, bullet.transform.position.z);
+			Vector3 bulletPosition = new Vector3 (bullet.transform.position.x, bullet.transform.position.y + ((((RectTransform)bullet.transform).rect.height) - (((RectTransform)bullet.transform).rect.height)/8), bullet.transform.position.z);
 			pinPointBullet.transform.position = bulletPosition;
 			pinPointSeted = true;
 		}
@@ -66,12 +70,12 @@ public class HebrewLetters : MonoBehaviour
 	public void begginGame(GameObject bullet){
 		int currentLevel = PlayerPrefs.GetInt ("level", 0);
 		if (!levelSelected && Int32.Parse(bullet.tag)<=currentLevel) {
-			Vector3 bulletPosition = new Vector3 (bullet.transform.position.x, bullet.transform.position.y + (((RectTransform)bullet.transform).rect.height)+50f, bullet.transform.position.z);
+			Vector3 bulletPosition = new Vector3 (bullet.transform.position.x, bullet.transform.position.y + ((((RectTransform)bullet.transform).rect.height) - (((RectTransform)bullet.transform).rect.height)/8), bullet.transform.position.z);
 			pinPointBullet.transform.SetParent (bullet.transform.parent.transform);
 			pinPointBullet.transform.position = bulletPosition;
 			StartCoroutine (showTransition ());
 			levelSelected = true;
-			PlayerPrefs.SetInt("level", Int32.Parse(bullet.tag));
+			PlayerPrefs.SetInt("selectedLevel", Int32.Parse(bullet.tag));
 		}
 	}
 

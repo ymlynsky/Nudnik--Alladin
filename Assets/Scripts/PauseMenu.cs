@@ -74,6 +74,7 @@ public class PauseMenu : MonoBehaviour {
 			Pause = false;	
 			SavB.fillAmount = 1;
 		}
+			/*
 			if (AjPlayerController.stopGame == false) {
 				if (AjPlayerController.magnetOn == true) {
 				magnit.enabled = true;
@@ -112,7 +113,9 @@ public class PauseMenu : MonoBehaviour {
 				rawX2BG.enabled = false;	
 			}	
 		}
-			coinCount = AjPlayerController.coinCount;
+		*/
+		
+		coinCount = AjPlayerController.coinCount;
 		dist = (int)Generation.Distance;
 		goCoins.text = coinCount.ToString ();
 		goDist.text = dist.ToString ();

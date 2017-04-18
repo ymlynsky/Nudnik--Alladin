@@ -110,12 +110,13 @@ public class AjPlayerController : MonoBehaviour
 
 	public Renderer[] coinChoiceArray;
 
-	int levelLimit = 5;
+	int levelLimit = 30;
 
 	public Animator characterAnimator;
 
 	private bool isFalling=false;
 	private int localLvlCounter = 0;
+	private int soundLocalLvlCounter;
 
 	public AudioClip[] audioLetterlist;
 
@@ -168,25 +169,28 @@ public class AjPlayerController : MonoBehaviour
 			rayDown.origin = dieRaycastDown.transform.position;
 			rayDown.direction = Vector3.down;
 			Physics.Raycast (rayDown, out hitGround, 0.5F);
+
+			if (quizAtempt > 1) {
+				int currentLevelValue = PlayerPrefs.GetInt ("selectedLevel");
+				int maxLevel = PlayerPrefs.GetInt ("level");
+				if (currentLevelValue >= maxLevel) {
+					LetterCountController.countValue++;
+					PlayerPrefs.SetInt ("level", LetterCountController.countValue);
+				}
+			}
+
 			if (hitGround.collider != null && hitGround.collider) {
 				PauseMenu.PausedOff ();
 				isFalling = false;
 				characterAnimator.SetTrigger ("return_to_running");
 				characterAnimator.SetBool ("falling_idle_anim_bool",false);
 
-
+				if(quizAtempt > 1){
+					Application.LoadLevel (1);
+				}
 			}
 			this.transform.position = Vector3.MoveTowards (this.transform.position, lastPosition, speed*Time.deltaTime);
 
-			if (quizAtempt > 1) {
-				int currentLevelValue = PlayerPrefs.GetInt ("selectedLevel");
-				int maxLevel = PlayerPrefs.GetInt ("level");
-				if(currentLevelValue >= maxLevel){
-					LetterCountController.countValue++;
-					PlayerPrefs.SetInt ("level", LetterCountController.countValue);
-				}
-				Application.LoadLevel (1);
-			}
 		}
 
 
@@ -476,8 +480,8 @@ public class AjPlayerController : MonoBehaviour
 						am.volume = 0.1F;
 						am.Play ();
 
-						if (localLvlCounter == 10 || localLvlCounter > 10) {
-							localLvlCounter = 0;
+						if (soundLocalLvlCounter == 10 || soundLocalLvlCounter > 10) {
+							soundLocalLvlCounter = 0;
 							AudioClip letterAudioClip = audioLetterlist [LetterCountController.countValue];
 							aSource.clip = letterAudioClip;
 							aSource.volume = 1F;
